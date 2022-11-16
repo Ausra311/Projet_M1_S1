@@ -32,8 +32,28 @@ public class Abonne_parent  extends Abonne{
 
     //Set :
 
-    public void add_restriction_enfant(Abonne_enfant enfant, String s){
-        enfant.add_restriction_enfant(s);
+    public void add_restriction_enfant(Abonne_enfant enfant, String categorie){
+        enfant.add_restriction_categorie(categorie);
+    }
+
+    public void add_restriction_enfant(Abonne_enfant enfant, int age){
+        enfant.add_restriction_age(age);
+    }
+
+    public void remove_restriction_enfant(Abonne_enfant enfant, String categorie){
+        enfant.remove_restriction_categorie(categorie);
+    }
+
+    public void remove_restriction_enfant(Abonne_enfant enfant, int age){
+        enfant.remove_restriction_age(age);
+    }
+
+    public void remove_restriction_enfant(Abonne_enfant enfant){
+        enfant.remove_restriction_age();
+    }
+
+    public void recharge_enfant(Abonne_enfant enfant, int montant){
+        enfant.recharger(montant);
     }
 
 

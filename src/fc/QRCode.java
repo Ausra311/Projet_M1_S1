@@ -7,6 +7,6 @@ public class QRCode extends Support {
 	}
     
     void sortir_support(){
-        System.out.println("QRCode sorti");
+        automate.sortir_QRcode(film.get_id());
     }
 }

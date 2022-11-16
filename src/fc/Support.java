@@ -1,6 +1,8 @@
 package fc;
 public abstract class Support {
     Film film;
+    Automate automate;
+
     Support(Film f){
         film = f;
     }
@@ -26,6 +28,8 @@ public abstract class Support {
     }
 
     void sortir_support(){
-        System.out.println("Film sorti");
+    }
+    void retour(){
+
     }
 }

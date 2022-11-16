@@ -35,6 +35,11 @@ public class DVD extends Support{
     }
 
     void sortir_support(){
-        System.out.println("DVD sorti");
+        automate.sortir_DVD(get_emplacement());
+        disponible = false;
+    }
+    void retour(){
+        automate.retour();
+        disponible = true;
     }
 }

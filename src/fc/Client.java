@@ -1,12 +1,37 @@
 package fc;
 
-import java.util.Date;
 
+import java.util.Vector;
 public class Client {
-    private String type;
+    private int id;
+    private String nom;
+    private String prenom;
+    private String adresse;
+    private String telephone;
+    private Vector<Historique> historique;
+    private int solde;
+    private int nb_film_mensuel;
     private int nb_film_en_location;
 
-    Client(){}
+    Client(int _id,
+          String _nom,
+          String _prenom,
+          String _adresse,
+          String _telephone,
+          int _solde){
+
+      id = _id;
+      nom = _nom;
+      prenom = _prenom;
+      adresse = _adresse;
+      telephone = _telephone;
+      historique = new Vector<Historique>();
+      solde = _solde;
+      nb_film_mensuel = 0;
+      nb_film_en_location = 0;
+
+
+    }
 
      
    public void debiter(){
@@ -23,9 +48,7 @@ public class Client {
    }
 
     //get
-    public String type(){
-        return type;
-   }
+
    public int nb_film_en_location(){
         return nb_film_en_location;
    }
@@ -39,3 +62,5 @@ public class Client {
    }
   
 }
+
+

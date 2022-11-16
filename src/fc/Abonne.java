@@ -38,21 +38,27 @@ public abstract class Abonne extends Client {
     public Vector<Film> get_historiqe(){
         return historique;
     }
-     public void set_nom(String n){
-           nom = n ;
+    
+    public void set_nom(String n){
+        nom = n ;
     }
+
     public String set_prenom(){
-          return prenom;
+        return prenom;
     }
+
     public String set_adresse(){
-          return adresse;
+        return adresse;
     }
+
     public int set_no_abonne(){
-          return no_abonne;
+        return no_abonne;
     }
+
     public int set_nb_film_loue_mois(){
         return nb_film_loue_mois;
     }
+
     public String set_no_telephone(){
         return no_telephone;
     }
@@ -80,6 +86,7 @@ public abstract class Abonne extends Client {
     public Boolean peut_louer(){
         return true;
     }
+
     @Override
     public Boolean solde_suffisant(){
       return true;  
