@@ -12,13 +12,14 @@ public class Client {
     private int solde;
     private int nb_film_mensuel;
     private int nb_film_en_location;
+    private Carte_banquaire carte_banquaire;
 
     Client(int _id,
           String _nom,
           String _prenom,
           String _adresse,
           String _telephone,
-          int _solde){
+          int _solde, Carte_banquaire _carte_banquaire){
 
       id = _id;
       nom = _nom;
@@ -29,13 +30,13 @@ public class Client {
       solde = _solde;
       nb_film_mensuel = 0;
       nb_film_en_location = 0;
+      carte_banquaire = _carte_banquaire;
 
 
     }
 
-     
    public void debiter(){
-
+    carte_banquaire.debiter();
     }
     public Boolean peut_louer(){
         return true;
