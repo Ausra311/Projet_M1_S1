@@ -22,16 +22,40 @@ Begin
 		raise_application_error(-20001, 'Support indisponible')
 	end if
 
+	if ((select typeCarte from Client 
+							where noClient = :new.noClient) = 'Sans Carte') then
+			
+			if ((Select count(noSupport) from Location
+										where noClient = :new.noClient and retourne = 1
+										group by noClient) != 0) then
+				raise_application_error(-20002, 'Trop de film en location');
+			end if;
+
+			update CarteBancaire set dateUtil = :new.dateEmprunt 
+								where noClient = :new.noClient;
+	else
+		if ((Select count(noSupport) from Location
+										where noClient = :new.noClient and retourne = 1
+										group by noClient) > 2) then
+			raise_application_error(-20002, 'Trop de film en location');
+		end if;
+		if ((Select solde from Abonne where noClient = :new.noClient) > 14) then
+			raise_application_error(-20003, 'Solde insuffisant');
+		end if;
+	end if;
+
     update Film Set nbLoue = nbLoue+1 
 				where noFilm = (distinct noFilm from Support 
 												where noSupport = :new.noSupport);
 	
-    if ((select typeCarte from Client 
-						where noClient = :new.noClient) = 'Sans Carte') then
-		update CarteBancaire set dateUtil = :new.dateEmprunt 
-							where noClient = :new.noClient;
-	end if;
+    
 End;
 /
 
+Create or re trigger RechargeCompte
+before update on Abonne
+for each row
+Begin
 
+End;
+/
