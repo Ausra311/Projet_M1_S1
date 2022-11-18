@@ -30,3 +30,18 @@ insert into AbonneEnfant values (7, 5, 0);
 -- Faire en sorte qu'un abonne ne peut être que dans son type
 -- insert into AbonneParent values (6, 5, 0);
 
+insert into Film values (1, 'Totoro', 'Eva', 2000, 'totoro', 0, 0);
+-- insert into Film values (1, 'Avenger', 'Eva', 2000, 'superheros', 0, 0);
+insert into Film values (2, 'Avenger', 'Eva', 2000, 'superheros', 0, 0);
+
+insert into Support values (1, 1, 'DVD');
+insert into Support values (2, 1, 'DVD');
+insert into Support values (3, 1, 'DVD');
+insert into Support values (4, 2, 'DVD');
+insert into Support values (5, 2, 'QRCode');
+-- insert into Support values (1, 2, 'DVD');
+-- insert into Support values (6, 2, 'Autre');
+
+insert into Location values (1, 1, SYSDATE, 0);
+
+

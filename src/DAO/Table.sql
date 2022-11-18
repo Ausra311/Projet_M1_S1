@@ -21,9 +21,9 @@ Create table Film (
     noFilm number(10) primary key check (noFilm between 1 and 9999999999),
     titreFilm varchar2(20),
     nomRealisateur varchar2(20),
-    dateSortie date,
+    dateSortie number(4),
     resume varchar2(1000),
-    restrictionAge number(2),
+    restrictionAge number(2) check (restrictionAge in (10, 12, 16, 18, 0)),
     nbLoue number(10)
 );
 
@@ -40,7 +40,7 @@ Create table Support (
 Create table Location (
     noClient number(10) references Client(noClient),
     noSupport number(10) references Support(noSupport),
-    dateEmprunt smalldatetime,
+    dateEmprunt date,
     retourne number(1) check (retourne between 0 and 1),
     primary key (noClient, noSupport, dateEmprunt)
 );
@@ -60,7 +60,7 @@ Create table CarteBancaire(
     nomBanque varchar2(20),
     typeCarte varchar2(20),
     refBancaire number(12),
-    dateUtil smalldatetime,
+    dateUtil date,
     primary key (noClient)
 );
 

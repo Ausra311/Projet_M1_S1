@@ -15,40 +15,45 @@ End;
 Create or replace trigger LocationFilm
 Before insert on Location
 for each row
+declare 
+	nb integer;
+	Carte varchar2(20);
 Begin 
-	if ((Select Count(noClient) from Location 
-							where retourne = 0 and noSupport = :new.noSupport 
-							group by noSupport) != 0) then
-		raise_application_error(-20001, 'Support indisponible')
-	end if
+	Select Count(*) into nb from Location 
+		where retourne = 0 and noSupport = :new.noSupport;
+	if (nb != 0) then
+		raise_application_error(-20001, 'Support indisponible');
+	end if;
 
-	if ((select typeCarte from Client 
-							where noClient = :new.noClient) = 'Sans Carte') then
+	select typeCarte into Carte from Client 
+		where noClient = :new.noClient;
+	if ( Carte = 'Sans Carte') then
 			
-			if ((Select count(noSupport) from Location
-										where noClient = :new.noClient and retourne = 1
-										group by noClient) != 0) then
+			Select count(*) into nb from Location
+				where noClient = :new.noClient and retourne = 1;
+			if (nb != 0) then
 				raise_application_error(-20002, 'Trop de film en location');
 			end if;
 
 			update CarteBancaire set dateUtil = :new.dateEmprunt 
 								where noClient = :new.noClient;
 	else
-		if ((Select count(noSupport) from Location
-										where noClient = :new.noClient and retourne = 1
-										group by noClient) > 2) then
+		Select count(*) into nb from Location
+			where noClient = :new.noClient and retourne = 1;
+		if (nb > 2) then
 			raise_application_error(-20002, 'Trop de film en location');
 		end if;
-		if ((Select solde from Abonne where noClient = :new.noClient) > 14) then
+
+		Select solde into nb from Abonne 
+			where noClient = :new.noClient;
+		if (nb > 14) then
 			raise_application_error(-20003, 'Solde insuffisant');
 		end if;
 	end if;
 
     update Film Set nbLoue = nbLoue+1 
-				where noFilm = (distinct noFilm from Support 
-												where noSupport = :new.noSupport);
-	
-    
+		where noFilm = (distinct noFilm from Support 
+			where noSupport = :new.noSupport);
 End;
 /
 
@@ -67,7 +72,7 @@ before insert on Abonne
 for each row
 Begin
 	if (:new.solde < 15) then
-		raise_application_error(-20004, 'Solde de depart insuffisant');
+		raise_application_error(-20004, 'Solde de depart insuffant');
 	end if;
 End;
 /
