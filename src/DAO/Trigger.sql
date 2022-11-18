@@ -52,10 +52,13 @@ Begin
 End;
 /
 
-Create or re trigger RechargeCompte
+Create or replace trigger RechargeCompte
 before update on Abonne
 for each row
 Begin
-
+	if (:new.solde < 10) then
+		raise_application_error(-20004, 'Recharge insuffisante');
+	end if;
 End;
 /
+
