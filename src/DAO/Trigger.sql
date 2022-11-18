@@ -62,3 +62,12 @@ Begin
 End;
 /
 
+Create or replace trigger CreationCompte
+before insert on Abonne
+for each row
+Begin
+	if (:new.solde < 15) then
+		raise_application_error(-20004, 'Solde de depart insuffisant');
+	end if;
+End;
+/
