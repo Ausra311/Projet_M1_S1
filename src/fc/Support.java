@@ -11,7 +11,7 @@ public abstract class Support {
         return -1;
     }
 
-    Boolean Est_endommage(){
+    Boolean est_endommage(){
         return false;
     }
 
@@ -28,8 +28,10 @@ public abstract class Support {
     }
 
     void sortir_support(){
+        //volontairement vide
     }
-    void retour(){
 
+    void retour(){
+        //volontairement vide
     }
 }

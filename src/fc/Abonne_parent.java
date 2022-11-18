@@ -6,12 +6,23 @@ public class Abonne_parent  extends Abonne{
     private int nb_enfant;
     private Vector<Abonne_enfant> no_enfant;
     
-    Abonne_parent (){};
-
-    @Override 
-    public String type_client(){
-        return "Abonne_parent";
+    Abonne_parent(int _id,
+                    String _nom,
+                    String _prenom,
+                    String _adresse,
+                    String _telephone,
+                    int _solde, 
+                    Carte_banquaire _carte_banquaire){
+        super(_id,
+            _nom,
+            _prenom,
+            _adresse,
+            _telephone,
+            _solde, 
+            _carte_banquaire);
     }
+
+
 
     //Get :
     public int get_nb_enfant(){
@@ -22,8 +33,8 @@ public class Abonne_parent  extends Abonne{
         return no_enfant;
     }
 
-    public Vector<Film> get_historique_enfant(Abonne_enfant enfant){
-        return enfant.get_historiqe();
+    public Vector<Historique> get_historique_enfant(Abonne_enfant enfant){
+        return enfant.get_historique();
     }
 
     public int get_solde_enfant(Abonne_enfant enfant){
@@ -56,6 +67,10 @@ public class Abonne_parent  extends Abonne{
         enfant.recharger(montant);
     }
 
+    @Override
+    public boolean peut_gerer_enfant(){
+        return true;    
+    }
 
     
 

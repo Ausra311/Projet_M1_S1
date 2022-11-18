@@ -23,7 +23,7 @@ public class Carte_banquaire{
     String reference(){
         return ref_bancaire;
     }
-    public void debiter(){
-        transaction.debiter(5, this);
+    public void debiter(int value){
+        transaction.debiter(value, this);
     }
 }

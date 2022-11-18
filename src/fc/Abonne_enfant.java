@@ -6,6 +6,21 @@ public class Abonne_enfant  extends Abonne{
     private Vector<String> restriction_categorie;
     private int restriction_age;
 
+    Abonne_enfant(int _id,
+                    String _nom,
+                    String _prenom,
+                    String _adresse,
+                    String _telephone,
+                    int _solde, 
+                    Carte_banquaire _carte_banquaire){
+        super(_id,
+            _nom,
+            _prenom,
+            _adresse,
+            _telephone,
+            _solde, 
+            _carte_banquaire);
+    }
 
     //Get :
     public int get_age(){
@@ -41,7 +56,6 @@ public class Abonne_enfant  extends Abonne{
         restriction_age = 0;
     }
 
-    @Override 
     public String type_client(){
         return "Abonne_enfant";
     }
