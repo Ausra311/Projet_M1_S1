@@ -29,6 +29,14 @@ public class Accueil extends JPanel{
         // Boutons
         Louer.setPreferredSize(new Dimension(400,80));
         Louer.setFont(new Font("Arial",Font.BOLD,25));
+        Louer.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e){
+            Fenetre.setContentPane(new Films(Fenetre));
+            Fenetre.revalidate();
+            }
+        });
+        
         Connexion.setPreferredSize(new Dimension(200,40));
         Connexion.setFont(new Font("Arial",Font.BOLD,15));
         Connexion.addActionListener(new ActionListener()

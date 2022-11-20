@@ -25,6 +25,13 @@ public class Connexion extends JPanel{
         //Boutons
         Inserer_carte.setPreferredSize(new Dimension(400,80));
         Inserer_carte.setFont(new Font("Arial",Font.BOLD,25));
+        Inserer_carte.addActionListener(new ActionListener()
+        {
+        public void actionPerformed(ActionEvent e){
+            Fenetre.setContentPane(new Films(Fenetre));
+            Fenetre.revalidate();
+            }
+        });
 
         Retour.setPreferredSize(new Dimension(110,50));
         Retour.addActionListener(new ActionListener()

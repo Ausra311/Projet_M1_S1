@@ -10,8 +10,6 @@ public class Rendre extends JPanel {
     Rendre(JFrame f){
         JFrame Fenetre = f;
 
-
-
         JPanel sud = new JPanel();
         JPanel centre = new JPanel();
         JPanel centre1 = new JPanel(); 
@@ -36,6 +34,13 @@ public class Rendre extends JPanel {
         Valider.setFont(new Font("Arial",Font.BOLD,25));
         Retour.setPreferredSize(new Dimension(110,50));
         Retour.addActionListener(new ActionListener()
+        {
+        public void actionPerformed(ActionEvent e){
+            Fenetre.setContentPane(new Accueil(Fenetre));
+            Fenetre.revalidate();
+            }
+        });
+        Valider.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
             Fenetre.setContentPane(new Accueil(Fenetre));
