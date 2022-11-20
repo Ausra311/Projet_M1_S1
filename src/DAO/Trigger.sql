@@ -72,7 +72,7 @@ before insert on Abonne
 for each row
 Begin
 	if (:new.solde < 15) then
-		raise_application_error(-20004, 'Solde de depart insuffant');
+		raise_application_error(-20005, 'Solde de depart insuffant');
 	end if;
 End;
 /
@@ -85,6 +85,8 @@ declare
 Begin
 	select count(noClient) into nb from CarteBancaire 
 		where nomBanque = :new.nomBanque and typeCarte = :new.typeCarte and refBancaire = :new.refBancaire;
-
+	if (nb != 0) then
+		raise_application_error(-20006, 'Carte Bancaire existe deja');
+	end if;
 End;
 /
