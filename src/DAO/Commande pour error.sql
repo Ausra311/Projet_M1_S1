@@ -12,3 +12,6 @@ and CONSTRAINT_TYPE='R';
 
     -- drop la table en supprimant les FK
     drop table ... cascade constraints;
+
+git config --global user.email "marion.bastard@gmail.com"
+git config --global user.name "MarionBaRo"
