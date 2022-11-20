@@ -25,34 +25,34 @@ Begin
 		raise_application_error(-20001, 'Support indisponible');
 	end if;
 
-	select typeCarte into Carte from Client 
+	select typeClient into Carte from Client 
 		where noClient = :new.noClient;
 	if ( Carte = 'Sans Carte') then
 			
 			Select count(*) into nb from Location
-				where noClient = :new.noClient and retourne = 1;
+				where noClient = :new.noClient and retourne = 0;
 			if (nb != 0) then
 				raise_application_error(-20002, 'Trop de film en location');
 			end if;
 
-			update CarteBancaire set dateUtil = :new.dateEmprunt 
-								where noClient = :new.noClient;
+		update CarteBancaire set dateUtil = :new.dateEmprunt 
+			where noClient = :new.noClient;
 	else
 		Select count(*) into nb from Location
-			where noClient = :new.noClient and retourne = 1;
+			where noClient = :new.noClient and retourne = 0;
 		if (nb > 2) then
 			raise_application_error(-20002, 'Trop de film en location');
 		end if;
 
 		Select solde into nb from Abonne 
 			where noClient = :new.noClient;
-		if (nb > 14) then
+		if (nb < 15) then
 			raise_application_error(-20003, 'Solde insuffisant');
 		end if;
 	end if;
 
     update Film Set nbLoue = nbLoue+1 
-		where noFilm = (distinct noFilm from Support 
+		where noFilm = (select distinct noFilm from Support 
 			where noSupport = :new.noSupport);
 End;
 /
@@ -74,5 +74,17 @@ Begin
 	if (:new.solde < 15) then
 		raise_application_error(-20004, 'Solde de depart insuffant');
 	end if;
+End;
+/
+
+Create or replace trigger NvlCarteBancaire
+before insert on CarteBancaire
+for each row
+declare 
+	nb integer;
+Begin
+	select count(noClient) into nb from CarteBancaire 
+		where nomBanque = :new.nomBanque and typeCarte = :new.typeCarte and refBancaire = :new.refBancaire;
+
 End;
 /
