@@ -14,16 +14,21 @@ public class Carte_banquaire{
         ref_bancaire = _ref_bancaire;
         transaction = _transaction;
     }
-    String nom(){
+
+    public String get_nom(){
         return nom_banque;
     }
-    String type_carte(){
+    public String get_type_carte(){
         return type_carte;
     }
-    String reference(){
+    public String get_reference(){
         return ref_bancaire;
     }
     public void debiter(int value){
         transaction.debiter(value, this);
+    }
+
+    public boolean solde(int n){
+        return transaction.solde(n);
     }
 }

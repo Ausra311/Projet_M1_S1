@@ -7,7 +7,7 @@ public class Test_Film{
     Film film;
 
 
-    public static void test(Boolean affichage){
+    public void test(Boolean affichage){
         int id_film = 1;
         String titre = "M1 info";
         String realisateur = "Vania Marangozova";
@@ -22,7 +22,7 @@ public class Test_Film{
         
         // changer le resume
         if(affichage) System.out.println("------------------------------------------------------");
-        if(affichage) System.out.println("Test du cahngement de résumé :\n");
+        if(affichage) System.out.println("Test du changement de résumé :\n");
         film.change_resume("Une classe");
         assert(resume != film.get_resume());
         if(affichage) System.out.println("l'assert de vérification de changement de résumé est passé\n");

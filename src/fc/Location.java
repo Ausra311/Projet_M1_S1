@@ -25,7 +25,7 @@ public class Location{
     }
 
     public void louer(Film film){
-        if (support.disponible() && client.peut_louer(film)){
+        if (support.disponible() && client.peut_louer()){
             support.sortir_support();
         }
     }

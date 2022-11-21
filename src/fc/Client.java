@@ -15,21 +15,19 @@ public class Client {
     protected int nb_film_en_location;
     protected Carte_banquaire carte_banquaire;
 
+    Client(){}
+
     Client(int _id,
-          String _nom,
-          String _prenom,
-          String _adresse,
-          String _telephone,
-          int _solde, 
           Carte_banquaire _carte_banquaire){
 
       id = _id;
-      nom = _nom;
-      prenom = _prenom;
-      adresse = _adresse;
-      telephone = _telephone;
+      nom = "";
+      prenom = "";
+      adresse = "";
+      telephone = "";
+      film_en_location = new Vector<Historique>();
       historique = new Vector<Historique>();
-      solde = _solde;
+      solde = 0;
       nb_film_mensuel = 0;
       nb_film_en_location = 0;
       carte_banquaire = _carte_banquaire;
@@ -58,7 +56,12 @@ public class Client {
     }
 
     public Vector<Historique> get_historique(){
-      return historique;
+      Vector<Historique> merge = new Vector<Historique>();
+      merge.addAll(historique);
+      merge.addAll(film_en_location);
+      System.out.println(historique.size());
+      System.out.println(film_en_location.size());
+      return merge;
     }
 
     public int get_solde(){
@@ -88,14 +91,15 @@ public class Client {
 
     }
 
-    public Boolean peut_louer(Film f){
+    public boolean peut_louer(){
       if(nb_film_en_location == 0 && solde_suffisant()){
         return true;
       }
         return false;
     }
-    public Boolean solde_suffisant(){
-      if(solde >=15){
+    
+    public boolean solde_suffisant(){
+      if(carte_banquaire.solde(15)){
         return true;
       }
       return false;  
@@ -126,12 +130,14 @@ public class Client {
       return false;
     }
 
-    public void louer(Film f){
-      if(peut_louer(f)){
+    public boolean louer(Film f){
+      if(peut_louer()){
         debiterMono();
         add_film_loc();
         add_Historique(f);
+        return true;
       }
+      return false;
     }
 
     public void rendre(Film f){

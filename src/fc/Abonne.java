@@ -1,21 +1,27 @@
 package fc;
 
+import java.util.Vector;
+
 public abstract class Abonne extends Client {
     
+
     Abonne(int _id,
-    String _nom,
-    String _prenom,
-    String _adresse,
-    String _telephone,
-    int _solde, 
-    Carte_banquaire _carte_banquaire){
-        super(_id,
-            _nom,
-            _prenom,
-            _adresse,
-            _telephone,
-            _solde, 
-            _carte_banquaire);
+            String _nom,
+            String _prenom,
+            String _adresse,
+            String _telephone,
+            int _solde,
+            Carte_banquaire _carte_banquaire){
+        id = _id;
+        nom = _nom;
+        prenom = _prenom;
+        adresse = _adresse;
+        telephone = _telephone;
+        historique = new Vector<Historique>();
+        solde = 0;
+        nb_film_mensuel = 0;
+        nb_film_en_location = 0;
+        carte_banquaire = _carte_banquaire;
     }
    
     
@@ -35,8 +41,15 @@ public abstract class Abonne extends Client {
         solde -= 4;
     }
 
+    public boolean solde_suffisant(){
+        if(get_solde()>=15){
+            return true;
+        }
+        return false;
+    }
+
     @Override
-    public Boolean peut_louer(Film f){
+    public boolean peut_louer(){
         if(nb_film_en_location < 3 && solde_suffisant()){
           return true;
         }
@@ -44,12 +57,14 @@ public abstract class Abonne extends Client {
       }
 
     @Override
-    public void louer(Film f){
-        if(peut_louer(f)){
+    public boolean louer(Film f){
+        if(peut_louer()){
           debiterMono();
           add_film_loc();
           add_Historique(f);
+          return true;
         }
+        return false;
     }
 
     public boolean peut_gerer_enfant(){
