@@ -2,6 +2,7 @@ package DAO;
 
 import fc.Client;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
@@ -15,7 +16,18 @@ public class ClientDAO extends DAO<Client> {
     public boolean create(Client obj, String type) throws SQLException {
         switch (type) {
             case "Sans Carte" :
-                
+                try (PreparedStatement Client = conn.prepareStatement("INSERT INTO CLIENT VALUES (?, ?)");
+                    PreparedStatement CarteBanquaire = conn.prepareStatement("INSERT INTO CarteBancaire VALUES (?, ?, ?, ?, SYSDATE)")) {
+                    Client.setInt(1, obj.getId());
+                    CarteBanquaire.setInt(1, obj.getId());
+                    CarteBanquaire.setInt(1, obj.getId());
+                    CarteBanquaire.setInt(1, obj.getId());
+                    CarteBanquaire.setInt(1, obj.getId());
+        
+                    Boolean b = Client.executeUpdate() > 0;
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             break;
             case "Abonne Parent" :
 
