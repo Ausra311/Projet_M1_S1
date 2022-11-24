@@ -7,7 +7,8 @@ public class Main {
 
     public static void main(String argv[]) {
         JFrame Fenetre = new JFrame();
-        Accueil accueil = new Accueil(Fenetre);
+        boolean connecter = false;
+        Accueil accueil = new Accueil(Fenetre,connecter);
         
         // Fenetre
         Fenetre.setContentPane(accueil);

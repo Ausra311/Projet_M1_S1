@@ -9,7 +9,10 @@ import java.awt.*;
 
 public class Connexion extends JPanel{
 
-    Connexion(JFrame f){
+    boolean connecter;
+    int pred;
+    Connexion(JFrame f, boolean c,int p){
+        pred = p;
         JFrame Fenetre = f;
         setLayout(new BorderLayout());
 
@@ -28,7 +31,12 @@ public class Connexion extends JPanel{
         Inserer_carte.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Films(Fenetre));
+            if(pred == 0){
+                Fenetre.setContentPane(new Films(Fenetre,true));
+            }else{
+                Fenetre.setContentPane(new Louer_abo(Fenetre,true));
+            }
+            
             Fenetre.revalidate();
             }
         });
@@ -37,7 +45,11 @@ public class Connexion extends JPanel{
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Accueil(Fenetre));
+            if(pred ==0){
+                Fenetre.setContentPane(new Accueil(Fenetre,connecter));
+            }else{
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre));
+            }
             Fenetre.revalidate();
             }
         });

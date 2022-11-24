@@ -2,23 +2,38 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.Vector;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 public class Films extends JPanel{
-    Films(JFrame f) {
+    boolean connecter;
+    Films(JFrame f, boolean c) {
+    connecter = c;
     JFrame Fenetre = f;
     setLayout(new BorderLayout());
-    boolean connecte = true;
     JPanel centre = new JPanel();
     JPanel films = new JPanel();
-    Film film1 = new Film(1,Fenetre);
-    Film film2 = new Film(2,Fenetre);
+    Film film1 = new Film(1,Fenetre,connecter);
+    Film film2 = new Film(2,Fenetre,connecter);
     JPanel sud = new JPanel();
     JButton Retour = new JButton("Retour");
     JButton GestionCompte = new JButton("Mon Compte");
     JLabel Solde = new JLabel("Votre solde : 15 € ");
+    JTextField Recherche = new JTextField();
+    Recherche.setFont(new Font("Arial",Font.PLAIN,20));
+    Vector<String> genre = new Vector<String>();
+    genre.add("Tous");
+    genre.add("Action");
+    genre.add("Animation");
+    JComboBox Liste_genre = new JComboBox<>(genre);
+    JPanel bar_recherche = new JPanel();
+    JButton chercher = new JButton("Chercher");
+    JLabel cherche = new JLabel(" Chercher :");
+    cherche.setFont(new Font("Arial",Font.PLAIN,20));
+
     films.setLayout(new StackLayout());
     JScrollPane bar = new JScrollPane(films);
     centre.setLayout(new BorderLayout());
@@ -26,14 +41,20 @@ public class Films extends JPanel{
     // Placement
     JPanel nord = new JPanel();
     nord.setLayout(new BorderLayout());
+    bar_recherche.setLayout(new BorderLayout());
     nord.add(GestionCompte,BorderLayout.WEST);
+    nord.add(chercher,BorderLayout.EAST);
+    bar_recherche.add(cherche,BorderLayout.WEST);
+    bar_recherche.add(Recherche,BorderLayout.CENTER);
+    bar_recherche.add(Liste_genre,BorderLayout.EAST);
+    nord.add(bar_recherche,BorderLayout.CENTER);
 
     sud.setLayout(new BorderLayout());
     sud.add(Retour,BorderLayout.WEST);
     sud.add(Solde,BorderLayout.EAST);
 
     //Connxion
-    if(!connecte){
+    if(!connecter){
             Solde.setVisible(false);
             GestionCompte.setVisible(false);
     }
@@ -46,7 +67,7 @@ public class Films extends JPanel{
     Retour.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Accueil(Fenetre));
+            Fenetre.setContentPane(new Accueil(Fenetre,connecter));
             Fenetre.revalidate();
             }
     });

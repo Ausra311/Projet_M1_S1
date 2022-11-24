@@ -9,8 +9,10 @@ import javax.swing.*;
 
 public class Accueil extends JPanel{
 
-    Accueil(JFrame f) {
+    boolean connecter;
+    Accueil(JFrame f, boolean c) {
 
+        connecter = c;
         JFrame Fenetre = f;
         setLayout(new StackLayout());
         
@@ -32,7 +34,7 @@ public class Accueil extends JPanel{
         Louer.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Films(Fenetre));
+            Fenetre.setContentPane(new Films(Fenetre,connecter));
             Fenetre.revalidate();
             }
         });
@@ -42,7 +44,7 @@ public class Accueil extends JPanel{
         Connexion.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Connexion(Fenetre));
+            Fenetre.setContentPane(new Connexion(Fenetre,connecter,0));
             Fenetre.revalidate();
             }
         });
@@ -51,7 +53,7 @@ public class Accueil extends JPanel{
         Rendre.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Rendre(Fenetre));
+            Fenetre.setContentPane(new Rendre(Fenetre,connecter));
             Fenetre.revalidate();
             }
         });

@@ -9,6 +9,17 @@ public class Histo extends JPanel {
     JFrame Fenetre;
     Histo(JFrame j){
         Fenetre = j;
+        JPanel nord = new JPanel();
+        nord.setLayout(new GridLayout(1,3));
+        JLabel titre = new JLabel("Titre");
+        JLabel date_deb = new JLabel("Date emprunt");
+        JLabel date_fin = new JLabel("Date rendu");
+        titre.setFont(new Font("Arial",Font.BOLD,15));
+        date_deb.setFont(new Font("Arial",Font.BOLD,15));
+        date_fin.setFont(new Font("Arial",Font.BOLD,15));
+        nord.add(titre);
+        nord.add(date_deb);
+        nord.add(date_fin);
         setLayout(new BorderLayout());
         JPanel principal = new JPanel();
         principal.setLayout(new StackLayout());
@@ -30,6 +41,7 @@ public class Histo extends JPanel {
             Fenetre.revalidate();
             }
         });
+        add(nord,BorderLayout.NORTH);
         add(scroll,BorderLayout.CENTER);
         add(sud,BorderLayout.SOUTH);
     }

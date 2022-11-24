@@ -7,8 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Rendre extends JPanel {
-    Rendre(JFrame f){
+    boolean connecter;
+    Rendre(JFrame f,boolean c){
         JFrame Fenetre = f;
+        connecter =c;
 
         JPanel sud = new JPanel();
         JPanel centre = new JPanel();
@@ -36,14 +38,14 @@ public class Rendre extends JPanel {
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Accueil(Fenetre));
+            Fenetre.setContentPane(new Accueil(Fenetre,connecter));
             Fenetre.revalidate();
             }
         });
         Valider.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Accueil(Fenetre));
+            Fenetre.setContentPane(new Accueil(Fenetre,connecter));
             Fenetre.revalidate();
             }
         });
