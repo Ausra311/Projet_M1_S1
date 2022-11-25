@@ -7,7 +7,7 @@ public class Test_Film{
     Film film;
 
 
-    public static void test(){
+    public void test(){
         int id_film = 1;
         String titre = "M1 info";
         String realisateur = "Vania Marangozova";

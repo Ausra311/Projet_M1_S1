@@ -21,6 +21,26 @@ public class Abonne_enfant  extends Abonne{
             _carte_banquaire);
     }
 
+    Abonne_enfant(int _id,
+                    String _nom,
+                    String _prenom,
+                    String _adresse,
+                    String _telephone,
+                    int _solde, 
+                    Vector<Historique> _historique,
+                    Vector<Historique> _film_en_location,
+                    Carte_banquaire _carte_banquaire){
+        super(_id,
+            _nom,
+            _prenom,
+            _adresse,
+            _telephone,
+            _solde, 
+            _historique,
+            _film_en_location,
+            _carte_banquaire);
+    }
+
     //Get :
     public int get_age(){
         return restriction_age;

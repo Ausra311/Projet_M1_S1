@@ -41,6 +41,28 @@ public class Client {
       restriction_age = 0;
     }
 
+    Client(int _id,
+          Carte_banquaire _carte_banquaire,
+          Vector<Historique> _film_en_location,
+          Vector<Historique> _historique,
+          int _nb_film_mensuel){
+
+      id = _id;
+      nom = "";
+      prenom = "";
+      adresse = "";
+      telephone = "";
+      film_en_location = _film_en_location;
+      historique = _historique;
+      solde = 0;
+      nb_film_mensuel = _nb_film_mensuel;
+      carte_banquaire = _carte_banquaire;
+      nb_enfant = 0;
+      liste_enfant = new Vector<Abonne_enfant>();
+      restriction_categorie = new Vector<String>();
+      restriction_age = 0;
+    }
+
     public int get_id(){
       return id;
     }

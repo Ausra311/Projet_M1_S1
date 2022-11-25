@@ -17,10 +17,40 @@ public abstract class Abonne extends Client {
         prenom = _prenom;
         adresse = _adresse;
         telephone = _telephone;
+        film_en_location = new Vector<Historique>();
         historique = new Vector<Historique>();
-        solde = 0;
+        solde = _solde;
         nb_film_mensuel = 0;
         carte_banquaire = _carte_banquaire;
+        nb_enfant = 0;
+        liste_enfant = new Vector<Abonne_enfant>();
+        restriction_categorie = new Vector<String>();
+        restriction_age = 0;
+    }
+
+    Abonne(int _id,
+            String _nom,
+            String _prenom,
+            String _adresse,
+            String _telephone,
+            int _solde,
+            Vector<Historique> _historique,
+            Vector<Historique> _film_en_location,
+            Carte_banquaire _carte_banquaire){
+        id = _id;
+        nom = _nom;
+        prenom = _prenom;
+        adresse = _adresse;
+        telephone = _telephone;
+        film_en_location = _film_en_location;
+        historique = _historique;
+        solde = _solde;
+        nb_film_mensuel = 0;
+        carte_banquaire = _carte_banquaire;
+        nb_enfant = 0;
+        liste_enfant = new Vector<Abonne_enfant>();
+        restriction_categorie = new Vector<String>();
+        restriction_age = 0;
     }
    
     
@@ -38,6 +68,13 @@ public abstract class Abonne extends Client {
     @Override
     public void debiterMono(){
         solde -= 4;
+    }
+
+    @Override
+    public void debiterAll(){
+        for(int i=0;i<get_nb_film_en_location();i++){
+          debiterMono();
+        }
     }
 
     public boolean solde_suffisant(){

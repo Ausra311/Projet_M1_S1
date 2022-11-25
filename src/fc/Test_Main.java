@@ -22,10 +22,10 @@ public class Test_Main {
         test_location.test(b);
         
         Test_Carte_Banquaire test_carte_banquaire = new Test_Carte_Banquaire();
-        test_carte_banquaire.test(true);
+        test_carte_banquaire.test(false);
         
         Test_Client test_client = new Test_Client();
-        test_client.test(true);
+        test_client.test(false);
 */
         return;
         
