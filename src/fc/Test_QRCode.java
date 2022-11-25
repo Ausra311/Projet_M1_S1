@@ -7,8 +7,8 @@ import org.junit.Assert;
 public class Test_QRCode {
     QRCode qrcode;
     Film film;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private PrintStream originalOut = System.out;
 
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));

@@ -7,18 +7,22 @@ import org.junit.Assert;
 public class Test_DVD {
     DVD dvd;
     Film film;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    private ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private PrintStream originalOut = System.out;
 
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
+    }
+
+    public void reset(){
+        outContent = new ByteArrayOutputStream();
     }
 
     public void restoreStreams() {
         System.setOut(originalOut);
     }
 
-    public static void test() {
+    public void test() {
         int id_film = 1;
         String titre = "M1 info";
         String realisateur = "Vania Marangozova";
@@ -60,14 +64,19 @@ public class Test_DVD {
         assert(dvd.get_film().get_titre().equals(film.get_titre()));
 
         // sortir le DVD
-        /*setUpStreams();
+        setUpStreams();
         dvd.sortir_support();;
         restoreStreams();
         try{Assert.assertEquals("DVD sortie\n", outContent.toString());}
-        catch(Exception e){ System.err.println("erreur méthode sortir_support");}*/
+        catch(Exception e){ System.err.println("erreur méthode sortir_support");}
 
         // retour
+        reset();
+        setUpStreams();
         dvd.retour();
+        restoreStreams();
+        try{Assert.assertEquals("DVD rendu\n", outContent.toString());}
+        catch(Exception e){ System.err.println("erreur méthode retour");}
         assert(dvd.disponible() == true);
         
         System.out.println("test de classe DVD OK");

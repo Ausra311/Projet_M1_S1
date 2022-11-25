@@ -8,10 +8,10 @@ public class Test_Main {
 
         Test_QRCode test_qrcode = new Test_QRCode();
         test_qrcode.test();
-/*
+
         Test_DVD test_dvd = new Test_DVD();
         test_dvd.test();
-
+/*
         Test_Abonne_Parent test_abonne_parent = new Test_Abonne_Parent();
         test_abonne_parent.test(b);
 

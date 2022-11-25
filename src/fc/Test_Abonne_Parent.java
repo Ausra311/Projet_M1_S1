@@ -8,7 +8,7 @@ public class Test_Abonne_Parent {
     public void test(){
         Carte_banquaire cb = new Carte_banquaire("CIC", "Visa", "42", new Banque_transaction());
         try{
-        parent = new Abonne_parent(0, "ANDRE", "Paul", "SMH", "3630", 15, null);
+        parent = new Abonne_parent(0, "ANDRE", "Paul", "SMH", "3630", 15, cb);
         }
         catch(Exception e){System.out.println("probleme init");}
     
