@@ -16,8 +16,6 @@ public class Films extends JPanel{
     setLayout(new BorderLayout());
     JPanel centre = new JPanel();
     JPanel films = new JPanel();
-    Film film1 = new Film(1,Fenetre,connecter);
-    Film film2 = new Film(2,Fenetre,connecter);
     JPanel sud = new JPanel();
     JButton Retour = new JButton("Retour");
     JButton GestionCompte = new JButton("Mon Compte");
@@ -79,13 +77,24 @@ public class Films extends JPanel{
             Fenetre.revalidate();
             }
     });
+    chercher.addActionListener(new ActionListener()
+    {
+        public void actionPerformed(ActionEvent e){
+            String genre_choisi =(String) Liste_genre.getSelectedItem();
+            String titre = Recherche.getText();
+            System.out.println("Recherche = " + titre);
+            System.out.println("genre = " + genre_choisi);
+            }
+    });
+    for (int i = 1; i<= 20; i++){
+        Film fi = new Film(i, Fenetre, connecter);
+        films.add(fi);
+    }
 
-
-    films.add(film1);
-    films.add(film2);
     centre.add(bar,BorderLayout.CENTER);
     add(centre,BorderLayout.CENTER);
     add(sud,BorderLayout.SOUTH);
     add(nord,BorderLayout.NORTH);
+
     }
 }

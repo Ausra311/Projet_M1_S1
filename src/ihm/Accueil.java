@@ -11,11 +11,10 @@ public class Accueil extends JPanel{
 
     boolean connecter;
     Accueil(JFrame f, boolean c) {
-
         connecter = c;
         JFrame Fenetre = f;
         setLayout(new StackLayout());
-        
+        //setBackground(new Color(0, 0, 0,50));
         JPanel Location = new JPanel();
         JPanel Boutons = new JPanel();
         JButton Louer = new JButton("Louer");
@@ -57,16 +56,14 @@ public class Accueil extends JPanel{
             Fenetre.revalidate();
             }
         });
-
-
         // Panel principal
         Location.add(Louer,BorderLayout.CENTER);
         Boutons.add(Rendre);
         Boutons.add(Connexion);
         add(Haut);
         add(Location);
-        add(Boutons);
-
+        add(Boutons);       
+        
     }
 }
 

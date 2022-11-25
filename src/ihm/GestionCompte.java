@@ -23,6 +23,7 @@ public class GestionCompte extends JPanel {
         centre.setLayout(new GridLayout(1,2));
         sud.setLayout(new BorderLayout());
         JTextField Infos = new JTextField("Nom Prenom adresse ...");
+        Infos.setEditable(false);
         JPanel boutons = new JPanel();
         boutons.setLayout(new StackLayout());
         JButton Histo = new JButton("Historique");

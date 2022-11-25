@@ -11,16 +11,27 @@ public class Connexion extends JPanel{
 
     boolean connecter;
     int pred;
+    int id = 0 ;
     Connexion(JFrame f, boolean c,int p){
         pred = p;
         JFrame Fenetre = f;
         setLayout(new BorderLayout());
-
+        JTextField identifiant = new JTextField("");
         JPanel sud = new JPanel();
         JPanel centre = new JPanel();
         JButton Inserer_carte = new JButton("Inserer carte");
         JButton Retour = new JButton("Retour");
-
+        JLabel iden= new JLabel("Identifiant :");
+        JPanel conn = new JPanel();
+        JPanel conn2 = new JPanel();
+        identifiant.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char c = e.getKeyChar();
+                if(((c<'0')||(c>'9'))&&(c != KeyEvent.VK_BACK_SPACE)){
+                    e.consume();
+                }
+            }
+        });
         // Placement
         JPanel haut = new JPanel(); 
         haut.setPreferredSize(new Dimension(600,400));
@@ -32,9 +43,17 @@ public class Connexion extends JPanel{
         {
         public void actionPerformed(ActionEvent e){
             if(pred == 0){
+                String s = identifiant.getText();
+                if(!s.equals("")){
+                    id = Integer.parseInt(s);
+                }
                 Fenetre.setContentPane(new Films(Fenetre,true));
             }else{
-                Fenetre.setContentPane(new Louer_abo(Fenetre,true));
+                String s = identifiant.getText();
+                if(!s.equals("")){
+                    id = Integer.parseInt(s);
+                }
+                Fenetre.setContentPane(new Louer_abo(Fenetre,true));        
             }
             
             Fenetre.revalidate();
@@ -53,8 +72,13 @@ public class Connexion extends JPanel{
             Fenetre.revalidate();
             }
         });
-        
-        centre.add(Inserer_carte);
+        identifiant.setPreferredSize(new Dimension(30,25));
+        conn.add(iden);
+        conn.add(identifiant);
+        centre.setLayout(new StackLayout());
+        conn2.add(Inserer_carte);
+        centre.add(conn2);
+        centre.add(conn);
         sud.setLayout(new BorderLayout());
         sud.add(Retour,BorderLayout.WEST);
 
