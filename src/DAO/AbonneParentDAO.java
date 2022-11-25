@@ -3,6 +3,7 @@ package DAO;
 import fc.Abonne_parent;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class AbonneParentDAO extends DAO<Abonne_parent>{
     
@@ -17,7 +18,7 @@ public class AbonneParentDAO extends DAO<Abonne_parent>{
     }
 
     @Override
-    public Abonne_parent read(Object obj) throws SQLException {
+    public Vector<Abonne_parent> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

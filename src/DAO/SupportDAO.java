@@ -3,6 +3,7 @@ package DAO;
 import fc.Support;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class SupportDAO extends DAO<Support>{
     
@@ -17,7 +18,7 @@ public class SupportDAO extends DAO<Support>{
     }
 
     @Override
-    public Support read(Object obj) throws SQLException {
+    public Vector<Support> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

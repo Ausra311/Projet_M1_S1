@@ -4,6 +4,7 @@ import fc.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Vector;
 
 
 public class ClientDAO extends DAO<Client> {
@@ -89,7 +90,7 @@ public class ClientDAO extends DAO<Client> {
     }
 
     @Override
-    public Client read(Object obj) throws SQLException {
+    public Vector<Client> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

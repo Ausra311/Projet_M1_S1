@@ -4,6 +4,7 @@ package DAO;
 import fc.Location;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.sql.PreparedStatement;
 
 
@@ -29,7 +30,7 @@ public class LocationDAO extends DAO<Location> {
     }
 
     @Override
-    public Location read(Object obj) throws SQLException {
+    public Vector<Location> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

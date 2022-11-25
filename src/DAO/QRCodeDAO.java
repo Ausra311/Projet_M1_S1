@@ -3,6 +3,7 @@ package DAO;
 import fc.QRCode;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class QRCodeDAO extends DAO<QRCode>{
     
@@ -17,7 +18,7 @@ public class QRCodeDAO extends DAO<QRCode>{
     }
 
     @Override
-    public QRCode read(Object obj) throws SQLException {
+    public Vector<QRCode> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }

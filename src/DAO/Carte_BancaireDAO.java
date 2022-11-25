@@ -3,6 +3,7 @@ package DAO;
 import fc.Carte_banquaire;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Vector;
 
 public class Carte_BancaireDAO extends DAO<Carte_banquaire>{
     
@@ -17,7 +18,7 @@ public class Carte_BancaireDAO extends DAO<Carte_banquaire>{
     }
 
     @Override
-    public Carte_banquaire read(Object obj) throws SQLException {
+    public Vector<Carte_banquaire> read(Object obj) throws SQLException {
         // TODO Auto-generated method stub
         return null;
     }
