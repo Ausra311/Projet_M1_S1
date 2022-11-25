@@ -3,8 +3,7 @@ package fc;
 import java.util.Vector;
 
 public class Abonne_parent  extends Abonne{
-    private int nb_enfant;
-    private Vector<Abonne_enfant> no_enfant;
+    
     
     Abonne_parent(int _id,
                     String _nom,
@@ -30,7 +29,7 @@ public class Abonne_parent  extends Abonne{
     };
 
     public Vector<Abonne_enfant> get_no_enfant(){
-        return no_enfant;
+        return liste_enfant;
     }
 
     public Vector<Historique> get_historique_enfant(Abonne_enfant enfant){

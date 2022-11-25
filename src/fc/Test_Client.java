@@ -29,7 +29,7 @@ public class Test_Client {
 
     public void test(boolean affichage){
         
-        
+        System.out.println("Debut test Client ok");
 
         int id = 0;
         Carte_banquaire cb = new Carte_banquaire("CIC", "Visa", "42", new Banque_transaction());
@@ -75,11 +75,11 @@ public class Test_Client {
         reset();
 
         setUpStreams();
-        client.add_film_loc();
-        client.add_film_loc();
+        client.louer(f);
+        client.louer(f);
         client.debiterAll();
-        client.rm_film_loc();
-        client.rm_film_loc();
+        client.rendre(f);
+        client.rendre(f);
         restoreStreams();
         try{Assert.assertEquals("compte 42 débité de 5\ncompte 42 débité de 5\n", outContent.toString());}
         catch(Exception e){ System.out.println("error debiterAll");}
@@ -89,33 +89,29 @@ public class Test_Client {
         catch(Exception e){System.out.println("solde_suffisant ok");}
 
         assert client.peut_louer()==true: "error peut_louer ";
-        client.add_film_loc();
+        client.louer(f);
         assert client.peut_louer()==false: "error peut_louer ";
-        client.rm_film_loc();
+        client.rendre(f);
 
         
 
         client.add_Historique(f);
-        assert client.get_historique().size()==1: "error add_Historique";
-
-        if(affichage) System.out.println("test add_date_rendu");
-        client.add_date_rendu(f);
-        if(affichage) System.out.println("add_date_rendu ok");
+        assert client.get_historique().size()==3: "error add_Historique";
 
         
-        if(affichage) System.out.println("test louer");
-        
-        /*boolean b = client.louer(f);
-        System.out.println(b);*/
+        assert client.get_nb_film_en_location()==1: "Aucun film en location";
+        int i = client.get_historique().size();
+        client.rendre(f);
+        assert client.get_nb_film_en_location()==0: "il reste un film en location";
+        assert client.get_historique().size()==i: "le film rendu n'est pas ajoute dans historique";
+
+
         assert client.louer(f) == true: "Probleme louer";
         assert client.louer(f) == false: "Probleme louer";
-        if(affichage) System.out.println("louer ok");
 
-        if(affichage) System.out.println("test rendre");
-        assert(client.get_nb_film_en_location()==1);
-        client.rendre(f);
-        assert(client.get_nb_film_en_location()==0);
-        if(affichage) System.out.println("rendre ok");
+
+
+
 
         System.out.println("Test Client ok");
 

@@ -12,8 +12,13 @@ public class Client {
     protected Vector<Historique> historique;
     protected int solde;
     protected int nb_film_mensuel;
-    protected int nb_film_en_location;
     protected Carte_banquaire carte_banquaire;
+
+    protected int nb_enfant;
+    protected Vector<Abonne_enfant> liste_enfant;
+
+    protected Vector<String> restriction_categorie;
+    protected int restriction_age; // 0 ou 10 ou 12 ou 16 ou 18. Dans client 0 uniquement
 
     Client(){}
 
@@ -29,10 +34,11 @@ public class Client {
       historique = new Vector<Historique>();
       solde = 0;
       nb_film_mensuel = 0;
-      nb_film_en_location = 0;
       carte_banquaire = _carte_banquaire;
-
-
+      nb_enfant = 0;
+      liste_enfant = new Vector<Abonne_enfant>();
+      restriction_categorie = new Vector<String>();
+      restriction_age = 0;
     }
 
     public int get_id(){
@@ -59,8 +65,6 @@ public class Client {
       Vector<Historique> merge = new Vector<Historique>();
       merge.addAll(historique);
       merge.addAll(film_en_location);
-      System.out.println(historique.size());
-      System.out.println(film_en_location.size());
       return merge;
     }
 
@@ -73,13 +77,27 @@ public class Client {
     }
 
     public int get_nb_film_en_location(){
-      return nb_film_en_location;
+      return film_en_location.size();
     }
 
     public Carte_banquaire get_cb(){
       return carte_banquaire;
     }
 
+    public int get_nb_enfant(){
+      return nb_enfant;
+    }
+
+    public Vector<Abonne_enfant> get_liste_enfant(){
+      return liste_enfant;
+    }
+
+    public Abonne_enfant get_enfant(int i){
+      if(i<liste_enfant.size()){
+        return liste_enfant.get(i);
+      }
+      return null;
+    }
     public void debiterMono(){
       carte_banquaire.debiter(5);
     }
@@ -92,7 +110,7 @@ public class Client {
     }
 
     public boolean peut_louer(){
-      if(nb_film_en_location == 0 && solde_suffisant()){
+      if(get_nb_film_en_location() == 0 && solde_suffisant()){
         return true;
       }
         return false;
@@ -105,25 +123,20 @@ public class Client {
       return false;  
     }
 
-    //set
-    public void add_film_loc(){
-      nb_film_en_location +=1;
-    }
-    public void rm_film_loc(){
-      nb_film_en_location -=1;
-    }
+
     
     public void add_Historique(Film f){
       Historique histo = new Historique(f);
       film_en_location.add(histo);
     }
 
-    public boolean add_date_rendu(Film f){
+    private boolean add_date_rendu(Film f){
       for(int i = 0;i<get_nb_film_en_location();i++){
         if(film_en_location.get(i).get_film() == f ){
           Historique histo = film_en_location.get(i);
           histo.rendre();
           historique.add(histo);
+          film_en_location.remove(i);
           return true;
         }
       }
@@ -133,7 +146,6 @@ public class Client {
     public boolean louer(Film f){
       if(peut_louer()){
         debiterMono();
-        add_film_loc();
         add_Historique(f);
         return true;
       }
@@ -141,9 +153,8 @@ public class Client {
     }
 
     public void rendre(Film f){
-      if(add_date_rendu(f)){
-        rm_film_loc();
-      }
+      add_date_rendu(f);
+
     }
 }
 

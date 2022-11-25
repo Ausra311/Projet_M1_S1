@@ -3,8 +3,7 @@ package fc;
 import java.util.Vector;
 
 public class Abonne_enfant  extends Abonne{
-    private Vector<String> restriction_categorie;
-    private int restriction_age;
+    
 
     Abonne_enfant(int _id,
                     String _nom,
@@ -37,7 +36,7 @@ public class Abonne_enfant  extends Abonne{
     }
 
     public void add_restriction_age(int age){
-        if(age==18 || age==16 || age==12 || age==10){
+        if(age==18 || age==16 || age==12 || age==10 || age==0){
             restriction_age = age;
         }
     }

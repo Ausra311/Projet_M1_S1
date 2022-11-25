@@ -20,12 +20,11 @@ public abstract class Abonne extends Client {
         historique = new Vector<Historique>();
         solde = 0;
         nb_film_mensuel = 0;
-        nb_film_en_location = 0;
         carte_banquaire = _carte_banquaire;
     }
    
     
-    //Get :
+
     public void recharger(int v){
         solde += v;
     }
@@ -50,7 +49,7 @@ public abstract class Abonne extends Client {
 
     @Override
     public boolean peut_louer(){
-        if(nb_film_en_location < 3 && solde_suffisant()){
+        if(get_nb_film_en_location() < 3 && solde_suffisant()){
           return true;
         }
           return false;
@@ -60,7 +59,6 @@ public abstract class Abonne extends Client {
     public boolean louer(Film f){
         if(peut_louer()){
           debiterMono();
-          add_film_loc();
           add_Historique(f);
           return true;
         }

@@ -29,6 +29,9 @@ public class Carte_banquaire{
     }
 
     public boolean solde(int n){
+        /*
+         Verifie que le compte possede au moins n euro 
+         */
         return transaction.solde(n);
     }
 }
