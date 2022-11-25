@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Test_Main",
+            "request": "launch",
+            "mainClass": "fc.Test_Main",
+            "projectName": "Projet_M1_S1_4073ee0e"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

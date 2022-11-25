@@ -5,6 +5,7 @@ public abstract class Support {
 
     Support(Film f){
         film = f;
+        automate = new Automate();
     }
 
     int get_emplacement(){
