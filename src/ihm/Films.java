@@ -86,7 +86,7 @@ public class Films extends JPanel{
             System.out.println("genre = " + genre_choisi);
             }
     });
-    for (int i = 1; i<= 20; i++){
+    for (int i = 1; i<= 5; i++){
         Film fi = new Film(i, Fenetre, connecter);
         films.add(fi);
     }
