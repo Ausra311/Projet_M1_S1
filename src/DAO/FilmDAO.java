@@ -41,6 +41,7 @@ public class FilmDAO extends DAO<Film> {
         }
 
         ResultSet Liste_noFilm;
+        ResultSet Liste_genre, Liste_acteur;
 
         if (Type == "Abonne Enfant"){
             noFilmEnfant.setInt(1, obj.get_id());
