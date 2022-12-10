@@ -22,15 +22,31 @@ public class DVDDAO extends DAO<DVD>{
     }
 
     @Override
-    public Vector<DVD> read(Object obj) throws SQLException {
-           DVD dvd = null;
-           try (PreparedStatement Resul = conn.prepareStatement("select distinct d.noSupport , d.etat , d.emplacement from DVD d , ((Select d.noSupport from DVD d, Support s where s.nofilm = ? and s.nosupport = d.nosupport) MINUS (Select l.noSupport from Location l, Support s where s.nofilm = ? and s.nosupport = l.nosupport) k where k.noSupport = d.noSupport)")){   
-                 Resul.setInt(1,((Film)obj).get_id());
-                 Resul.setInt(2,((Film)obj).get_id());
-                 ResultSet resultSet = Resul.executeQuery();
-                 
-           }
-        return null;
+    public Vector<Abonne_enfant> read(Object obj) throws SQLException {
+        Abonne_enfant abonne_enfant = null;
+        String nom = null;
+        String prenom = null;
+        String adresse =null;
+        String telephone = null;
+        int solde = (Integer) null;
+        Carte_banquaire carte = null;
+        
+        Vector<Abonne_enfant> ab = new Vector<Abonne_enfant>();
+
+        try (PreparedStatement Resul = conn.prepareStatement("select noClient  , restrictionAge from AbonneEnfant where noParent = ?  ")){   
+            Resul.setInt(1,((Client)obj).get_id());
+            ResultSet resultSet = Resul.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                abonne_enfant = new  Abonne_enfant(id,nom,prenom,adresse,telephone,solde,carte); 
+                abonne_enfant.add_restriction_age(resultSet.getInt(3));
+                ab.add(abonne_enfant);  
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ab;
     }
 
     @Override
