@@ -23,7 +23,18 @@ public class FilmDAO extends DAO<Film> {
     @Override
     public Vector<Film> read(Object obj) throws SQLException {
         Client c = (Client)obj;
-        Vector<Film> liste_film = new Vector<Film>(); 
+        Vector<Film> liste_film = new Vector<Film>();
+        int Id;
+        String titre;
+        String realisateur;
+        Vector<String> L_acteurs;
+        String resume;
+        Vector<String> genre;
+        int restriction;
+        int nb_location;
+        String acteur;
+        Film f;
+
 
         try (PreparedStatement typeClient = conn.prepareStatement("SELECT typeClient FROM Client WHERE noClient = ?)");
         PreparedStatement noFilm = conn.prepareStatement("SELECT noFilm FROM FILM)"); 
@@ -51,48 +62,36 @@ public class FilmDAO extends DAO<Film> {
         }
 
         while (Liste_noFilm.next()) {
-            genre_Film.setInt()
-            Vector<String> Acteur = new Vector<String>();
-            Vector<String> Genre = new Vector<String>();
+            Id = Liste_noFilm.getInt(1);
+            titre = Liste_noFilm.getString(2);
+            realisateur = Liste_noFilm.getString(3);
+            resume = Liste_noFilm.getString(5);
+            restriction = Liste_noFilm.getInt(6);
+            nb_location = Liste_noFilm.getInt(7);
 
+            Genre = new Vector<String>();
+            genre_Film.setInt(1, Id);
+            Liste_genre = genre_Film.executeQuery();
+            while (Liste_genre.next()) {
+                genre.add(Liste_genre.getString(1))
+            }
             
+            Acteur = new Vector<String>();
+            acteur_Film.setInt(1, Id);
+            Liste_acteur = acteur_Film.executeQuery();
+            while (Liste_acteur.next()) {
+                acteur = Liste_acteur.getString(1) + " " + Liste_acteur.getString(1);
+                L_acteurs.add(acteur);
+            }
 
-            Film f = new Film(0, Type, Type, null, Type, null, 0, 0);
+            f = new Film(Id, titre, realisateur, Acteur, resume, Genre, restriction, nb_location);
             liste_film.add(f);
-		}
-        
 
-        (PreparedStatement lesEmployes = conn.prepareStatement("SELECT NOME, ADRESSE FROM LESEMPLOYES WHERE NOME = ?");
-		     PreparedStatement lesGardiens = conn.prepareStatement("SELECT NOCAGE FROM LESGARDIENS WHERE NOME = ?");
-		     PreparedStatement lesSpecialites = conn.prepareStatement("SELECT FONCTION_CAGE FROM LESSPECIALITES WHERE NOME = ?")) {
-			lesEmployes.setString(1, (String)g);
-			ResultSet resultSet = lesEmployes.executeQuery();
-
-			gardien = new Gardien();
-			if (resultSet.next()) {
-				gardien.setNomE(resultSet.getString(1));
-				gardien.setAdresse(resultSet.getString(2));
-			}
-
-			lesGardiens.setString(1, (String)g);
-			resultSet = lesGardiens.executeQuery();
-			while (resultSet.next()) {
-				Cage c = new Cage();
-				c.setNoCage(resultSet.getInt(1));
-				gardien.addCage(c);
-			}
-
-			lesSpecialites.setString(1, (String)g);
-			resultSet = lesSpecialites.executeQuery();
-			while (resultSet.next()) {
-				gardien.addSpecialites(resultSet.getString(1));
-			}
-            
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-        return null;
+        return liste_film;
     }
 
     @Override

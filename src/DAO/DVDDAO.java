@@ -51,7 +51,16 @@ public class DVDDAO extends DAO<DVD>{
 
     @Override
     public boolean update(DVD obj) throws SQLException {
-        // TODO Auto-generated method stub
+        try (PreparedStatement Etat = conn.prepareStatement("update DVD Set etat = ? Where noSupport = ?")){
+            if (obj.est_endommage()){
+                Etat.setInt(2, obj.get_id());
+                Etat.setInt(1, "Endommage");
+                Etat.executeQuery();
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 

@@ -37,7 +37,16 @@ public class LocationDAO extends DAO<Location> {
 
     @Override
     public boolean update(Location obj) throws SQLException {
-        // TODO Auto-generated method stub
+        try (PreparedStatement Etat = conn.prepareStatement("update Loaction Set retourne = 1 and dateRetour = ? Where noClient = ? and noSupport = ? and dateEmprunt = ?")){
+            if (obj.est_endommage()){
+                Etat.setInt(2, obj.get_id());
+                Etat.setInt(1, "Endommage");
+                Etat.executeQuery();
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
