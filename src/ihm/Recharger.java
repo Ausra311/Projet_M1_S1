@@ -26,8 +26,11 @@ public class Recharger extends JPanel {
               int solde = 15; // a récupérer dans la bd
               JLabel info_solde = new JLabel("Votre solde est de : "+ solde +" euros");
               info_solde.setFont(new Font("Arial",Font.CENTER_BASELINE,20)); 
+              info_solde.setFont(new Font("Arial",Font.BOLD,20));
+              Payer.setFont(new Font("Arial",Font.BOLD,20));
               
               JButton terminer = new JButton("Terminer");
+              terminer.setFont(new Font("Arial",Font.BOLD,15));
 
 
               montant.setPreferredSize(new Dimension(100,30));

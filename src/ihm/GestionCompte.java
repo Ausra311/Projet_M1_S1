@@ -28,11 +28,15 @@ public class GestionCompte extends JPanel {
         boutons.setLayout(new StackLayout());
         JButton Histo = new JButton("Historique");
         Histo.setPreferredSize(new Dimension(110,50));
+        Histo.setFont(new Font("Arial",Font.BOLD,25));
         JButton Deconnexion = new JButton("Deconnexion");
         Deconnexion.setPreferredSize(new Dimension(110,50));
+        Deconnexion.setFont(new Font("Arial",Font.BOLD,25));
         JButton Recharger = new JButton("Recharger");
         Recharger.setPreferredSize(new Dimension(110,50));
+        Recharger.setFont(new Font("Arial",Font.BOLD,25));
         JButton GererMioche = new JButton("Gérer compte enfant");
+        GererMioche.setFont(new Font("Arial",Font.BOLD,25)); 
         GererMioche.setPreferredSize(new Dimension(110,50));
         JButton Retour = new JButton("Retour");
         Retour.setPreferredSize(new Dimension(110,50));
@@ -67,7 +71,7 @@ public class GestionCompte extends JPanel {
         GererMioche.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Gerergosse(Fenetre));
+            Fenetre.setContentPane(new Gerer_gosse(Fenetre));
             Fenetre.revalidate();
             }
         });

@@ -19,6 +19,8 @@ public class Louer_non_abo extends JPanel {
         JPanel droite = new JPanel();
         JPanel espace = new JPanel();
         JPanel Payement = new JPanel();
+        JPanel nord = new JPanel();
+        nord.setPreferredSize(new Dimension(600,300));
         JLabel paye = new JLabel("Payement de 5 euros effectué     ");
 
         espace.setPreferredSize(new Dimension(5,40));
@@ -29,6 +31,12 @@ public class Louer_non_abo extends JPanel {
         JButton valider = new JButton("Valider");
         JButton retour = new JButton("Retour");
         JButton terminer = new JButton("Terminer");
+
+        paye.setFont(new Font("Arial",Font.BOLD,20));
+        terminer.setFont(new Font("Arial",Font.BOLD,20));
+        prix.setFont(new Font("Arial",Font.BOLD,25));
+        connecter.setFont(new Font("Arial",Font.BOLD,25));
+        valider.setFont(new Font("Arial",Font.BOLD,25));
         retour.setPreferredSize(new Dimension(110,50));
         retour.addActionListener(new ActionListener()
         {
@@ -77,6 +85,7 @@ public class Louer_non_abo extends JPanel {
         centre.add(droite);
         centre.add(Payement);
 
+        add(nord,BorderLayout.NORTH);
         add(centre,BorderLayout.CENTER);
         add(sud,BorderLayout.SOUTH);
     }
