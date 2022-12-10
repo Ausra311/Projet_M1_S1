@@ -22,7 +22,7 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
 
     @Override
     public Vector<Abonne_enfant> read(Object obj) throws SQLException {
-        Abonne_enfant abonne_enfant;
+        Abonne_enfant enfant;
 
         int id = (Int)obj;
         String nom;
@@ -71,11 +71,7 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
             telephone = res_abonne.getInt(5);
             solde = res_abonne.getInt(6);
             restriction_age = res_enfant.getInt(3);
-
-            while (res_genre.next()){
-                restriction_categorie.add(res_genre.getString(2));
-            }
-
+            
             while (res_location.next()){
                 info_film.setInt(1, res_location.getInt(2))
                 res_film = info_film.executeQuery();
@@ -112,11 +108,16 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
                     nb_film_mensuel = nb_film_mensuel + 1;
                 }
             }
+            enfant = new Abonne_enfant(id, nom, prenom, adresse, telephone, solde, historique, film_en_location, null);
+            while (res_genre.next()){
+                enfant.add_restriction_categorie(res_genre.getString(2));
+            }
+            enfant.remove_restriction_age(restriction_age);
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return ab;
+        return enfant;
     }
 
     @Override
