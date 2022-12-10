@@ -23,7 +23,7 @@ public class FilmDAO extends DAO<Film> {
     @Override
     public Vector<Film> read(Object obj) throws SQLException {
         Client c = (Client)obj;
-        Vector<Film> liste_film = new Vector<Film>();
+        Vector<Film> liste_film = new Vector<Film>(); 
 
         try (PreparedStatement typeClient = conn.prepareStatement("SELECT typeClient FROM Client WHERE noClient = ?)");
         PreparedStatement noFilm = conn.prepareStatement("SELECT noFilm FROM FILM)"); 
@@ -51,7 +51,7 @@ public class FilmDAO extends DAO<Film> {
         }
 
         while (Liste_noFilm.next()) {
-
+            genre_Film.setInt()
             Vector<String> Acteur = new Vector<String>();
             Vector<String> Genre = new Vector<String>();
 
