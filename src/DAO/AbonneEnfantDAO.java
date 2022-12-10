@@ -4,6 +4,8 @@ import fc.Abonne_enfant;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.*;
+import static java.lang.System.*;
 
 
 public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
@@ -40,6 +42,8 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
         Film f;
         Vector<String> L_acteurs;
         Vector<String> Genre;
+        Calendar date_actuel = Calendar.getInstance();
+        Calendar date_location = Calendar.getInstance();
 
         try (PreparedStatement info_abonne = conn.prepareStatement("select * from Abonne where noClient = ?");
             PreparedStatement info_enfant = conn.prepareStatement("select * from AbonneEnfant where noClient = ?");
@@ -93,8 +97,6 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
 
                 f = new Film(Liste_noFilm.getInt(1), Liste_noFilm.getString(2), Liste_noFilm.getString(3), Acteur, Liste_noFilm.getString(5), Genre, Liste_noFilm.getInt(6), Liste_noFilm.getInt(7));
 
-                
-
                 if (res_location.getInt(4) == 0){
                     film_en_location.add(new historique(f, res_location.getDate(3), null));
                     historique.add(new historique(f, res_location.getDate(3), null));
@@ -102,19 +104,13 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
                 } else {
                     historique.add(new historique(f, res_location.getDate(3), res_location.getDate(5)));
                 }
-                //Trouver comment récupérer le mois en cours
-                if (res_location.getDate(3).after()){
+
+                date_location.setTime(res_location.getDate(3));
+                date_actuel.setTime(new Date());
+            
+                if (date_location.get(Calendar.MONTH) == date_actuel.get(Calendar.MONTH)){
                     nb_film_mensuel = nb_film_mensuel + 1;
                 }
-            }
-           
-            Resul.setInt(1,((Client)obj).get_id());
-            ResultSet resultSet = Resul.executeQuery();
-            if (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                abonne_enfant = new  Abonne_enfant(id,nom,prenom,adresse,telephone,solde,carte); 
-                abonne_enfant.add_restriction_age(resultSet.getInt(3));
-                ab.add(abonne_enfant);  
             }
         }
         catch (SQLException e) {
