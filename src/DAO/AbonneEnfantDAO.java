@@ -37,12 +37,17 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
         Vector<String> restriction_categorie = new Vector<String>();
         int restriction_age;
 
+        Film f;
+        Vector<String> L_acteurs;
+        Vector<String> Genre;
 
         try (PreparedStatement info_abonne = conn.prepareStatement("select * from Abonne where noClient = ?");
             PreparedStatement info_enfant = conn.prepareStatement("select * from AbonneEnfant where noClient = ?");
             PreparedStatement info_genre = conn.prepareStatement("select * from Restriction where noClient = ?");
             PreparedStatement info_location = conn.prepareStatement("select * from Location where noClient = ?");
-            PreparedStatement info_film = conn.prepareStatement("select * from Film where noFilm in (Select noFilm from Support where noSupport = ?)")){   
+            PreparedStatement info_film = conn.prepareStatement("select * from Film where noFilm in (Select noFilm from Support where noSupport = ?)");
+            PreparedStatement genre_Film = conn.prepareStatement("SELECT genre FROM Genre WHERE noFilm = ?");
+            PreparedStatement acteur_Film = conn.prepareStatement("SELECT nomActeur, prenomActeur FROM Acteuur WHERE noFilm = ?")){   
            
             info_abonne.setInt(1, id);
             info_enfant.setInt(1, id);
@@ -69,9 +74,37 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
 
             while (res_location.next()){
                 info_film.setInt(1, res_location.getInt(2))
-                if (res_location.getInt(4) == 0){
-                    
+                res_film = info_film.executeQuery();
 
+                Genre = new Vector<String>();
+                genre_Film.setInt(1, Liste_noFilm.getInt(1));
+                Liste_genre = genre_Film.executeQuery();
+                while (Liste_genre.next()) {
+                    genre.add(Liste_genre.getString(1))
+                }
+                
+                L_acteurs = new Vector<String>();
+                acteur_Film.setInt(1, Liste_noFilm.getInt(1));
+                Liste_acteur = acteur_Film.executeQuery();
+                while (Liste_acteur.next()) {
+                    acteur = Liste_acteur.getString(1) + " " + Liste_acteur.getString(1);
+                    L_acteurs.add(acteur);
+                }
+
+                f = new Film(Liste_noFilm.getInt(1), Liste_noFilm.getString(2), Liste_noFilm.getString(3), Acteur, Liste_noFilm.getString(5), Genre, Liste_noFilm.getInt(6), Liste_noFilm.getInt(7));
+
+                
+
+                if (res_location.getInt(4) == 0){
+                    film_en_location.add(new historique(f, res_location.getDate(3), null));
+                    historique.add(new historique(f, res_location.getDate(3), null));
+
+                } else {
+                    historique.add(new historique(f, res_location.getDate(3), res_location.getDate(5)));
+                }
+                //Trouver comment récupérer le mois en cours
+                if (res_location.getDate(3).after()){
+                    nb_film_mensuel = nb_film_mensuel + 1;
                 }
             }
            
