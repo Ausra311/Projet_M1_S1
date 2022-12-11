@@ -5,13 +5,14 @@ public abstract class Support {
 
     Support(Film f){
         film = f;
+        automate = new Automate();
     }
 
     int get_emplacement(){
         return -1;
     }
 
-    Boolean Est_endommage(){
+    Boolean est_endommage(){
         return false;
     }
 
@@ -28,8 +29,10 @@ public abstract class Support {
     }
 
     void sortir_support(){
+        //volontairement vide
     }
-    void retour(){
 
+    void retour(){
+        //volontairement vide
     }
 }
