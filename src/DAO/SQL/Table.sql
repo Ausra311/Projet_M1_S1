@@ -51,11 +51,7 @@ Create table Abonne (
     nomAbonne varchar2(20),
     prenomAbonne varchar2(20),
     adAbonne varchar2(100),
-<<<<<<< HEAD
     noTel varchar(11),
-=======
-    noTel number(11),
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
     solde number(4),
     primary key (noClient)
 );
@@ -64,11 +60,7 @@ Create table CarteBancaire(
     noClient number(10) references Client(noClient),
     nomBanque varchar2(20),
     typeCarte varchar2(20),
-<<<<<<< HEAD
     refBancaire varchar(12),
-=======
-    refBancaire number(12),
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
     dateUtil date,
     primary key (noClient)
 );
