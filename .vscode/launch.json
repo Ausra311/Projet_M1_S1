@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Test",
+            "request": "launch",
+            "mainClass": "DAO.Test",
+            "projectName": "Projet_M1_S1_99003ab7"
+        },
+        {
+            "type": "java",
             "name": "Launch Test_Main",
             "request": "launch",
             "mainClass": "fc.Test_Main",
