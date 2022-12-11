@@ -97,6 +97,7 @@ public abstract class Abonne extends Client {
         if(peut_louer()){
           debiterMono();
           add_Historique(f);
+          vingtieme_films();
           return true;
         }
         return false;

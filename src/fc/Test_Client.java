@@ -27,15 +27,13 @@ public class Test_Client {
     }
     
 
-    public void test(boolean affichage){
+    public void test(){
         
         System.out.println("Debut test Client ok");
 
         int id = 0;
         Carte_banquaire cb = new Carte_banquaire("CIC", "Visa", "42", new Banque_transaction());
         Film f = new Film(0, "A", "B", new Vector<String>(), "c", new Vector<String>(), 0, 0);
-
-        System.out.println("------------------------------------------------------");
 
         try{client = new Client(id, cb);}
         catch(Exception e){System.out.println("error init");}
@@ -74,9 +72,10 @@ public class Test_Client {
         catch(Exception e){ System.out.println("error debiterAll");}
         reset();
 
+
         setUpStreams();
-        client.louer(f);
-        client.louer(f);
+        client.add_Historique(f);
+        client.add_Historique(f);
         client.debiterAll();
         client.rendre(f);
         client.rendre(f);
@@ -84,6 +83,8 @@ public class Test_Client {
         try{Assert.assertEquals("compte 42 débité de 5\ncompte 42 débité de 5\n", outContent.toString());}
         catch(Exception e){ System.out.println("error debiterAll");}
         reset();
+
+
 
         try{client.solde_suffisant();}
         catch(Exception e){System.out.println("solde_suffisant ok");}
@@ -96,7 +97,7 @@ public class Test_Client {
         
 
         client.add_Historique(f);
-        assert client.get_historique().size()==3: "error add_Historique";
+        assert client.get_historique().size()==4: "error add_Historique";
 
         
         assert client.get_nb_film_en_location()==1: "Aucun film en location";

@@ -44,7 +44,7 @@ public class Abonne_enfant  extends Abonne{
     //Get :
     public int get_age(){
         return restriction_age;
-    };
+    }
 
     public Vector<String> get_restriction_categorie(){
         return restriction_categorie;

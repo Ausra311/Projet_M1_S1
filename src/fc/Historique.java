@@ -12,6 +12,12 @@ public class Historique {
         
     }
 
+    Historique(Film _film,Date _date_debut,Date _date_fin){
+        film = _film;
+        date_debut = _date_debut;
+        date_fin = _date_fin;  
+    }
+
     public Film get_film(){
         return film;
     }

@@ -51,7 +51,7 @@ public class Abonne_parent  extends Abonne{
 
     //Get :
     public int get_nb_enfant(){
-        return nb_enfant;
+        return liste_enfant.size();
     };
 
     public Vector<Abonne_enfant> get_no_enfant(){
@@ -67,6 +67,12 @@ public class Abonne_parent  extends Abonne{
     }
 
     //Set :
+
+    public void add_enfant(Abonne_enfant enfant){
+        liste_enfant.add(enfant);
+    }
+
+
 
     public void add_restriction_enfant(Abonne_enfant enfant, String categorie){
         enfant.add_restriction_categorie(categorie);

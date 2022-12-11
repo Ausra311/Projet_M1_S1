@@ -12,23 +12,20 @@ public class Test_Carte_Banquaire {
             Banque_transaction bt= new Banque_transaction();
             
 
-            if(affichage) System.out.println("------------------------------------------------------");
             cb = new Carte_banquaire(bank, type, ref, bt);
-            if(affichage) System.out.println("init ok");
             
-            if(affichage) System.out.println("test get_nom");
-            assert(cb.get_nom()==bank);
-            if(affichage) System.out.println("get_nom ok");
+            // get_nom
+            assert cb.get_nom()==bank: "erreur méthode get_nom";
 
-            if(affichage) System.out.println("test get_type_carte");
-            assert(cb.get_type_carte()==type);
-            if(affichage) System.out.println("get_type_carte ok");
+            // get_type_carte
+            assert cb.get_type_carte()==type : "erreur méthode get_type_carte";
 
-            if(affichage) System.out.println("test get_reference");
-            assert(cb.get_reference()==ref);
-            if(affichage) System.out.println("get_reference ok");
+            // test get_reference
+            assert cb.get_reference()==ref: "erreur méthode get_reference";
 
-            if(affichage) System.out.println("test debiter");
+            // debiter
+
+            // je ne comprend pas comment ça vérifie concretement
             cb.debiter(10);
             if(affichage) System.out.println("get_reference ok");
 
