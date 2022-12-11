@@ -13,7 +13,6 @@ public class Client {
     protected int solde;
     protected int nb_film_mensuel;
     protected Carte_banquaire carte_banquaire;
-<<<<<<< HEAD
 
     protected Vector<Abonne_enfant> liste_enfant;
 
@@ -23,18 +22,6 @@ public class Client {
     public Client(){}
 
     public Client(int _id,
-=======
-
-    protected int nb_enfant;
-    protected Vector<Abonne_enfant> liste_enfant;
-
-    protected Vector<String> restriction_categorie;
-    protected int restriction_age; // 0 ou 10 ou 12 ou 16 ou 18. Dans client 0 uniquement
-
-    Client(){}
-
-    Client(int _id,
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
           Carte_banquaire _carte_banquaire){
 
       id = _id;
@@ -47,10 +34,6 @@ public class Client {
       solde = 0;
       nb_film_mensuel = 0;
       carte_banquaire = _carte_banquaire;
-<<<<<<< HEAD
-=======
-      nb_enfant = 0;
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
       liste_enfant = new Vector<Abonne_enfant>();
       restriction_categorie = new Vector<String>();
       restriction_age = 0;
@@ -72,10 +55,6 @@ public class Client {
       solde = 0;
       nb_film_mensuel = _nb_film_mensuel;
       carte_banquaire = _carte_banquaire;
-<<<<<<< HEAD
-=======
-      nb_enfant = 0;
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
       liste_enfant = new Vector<Abonne_enfant>();
       restriction_categorie = new Vector<String>();
       restriction_age = 0;
@@ -124,13 +103,6 @@ public class Client {
       return carte_banquaire;
     }
 
-<<<<<<< HEAD
-=======
-    public int get_nb_enfant(){
-      return nb_enfant;
-    }
-
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
     public Vector<Abonne_enfant> get_liste_enfant(){
       return liste_enfant;
     }

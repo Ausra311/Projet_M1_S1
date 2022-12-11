@@ -5,11 +5,7 @@ import java.util.Vector;
 public class Abonne_parent  extends Abonne{
     
     
-<<<<<<< HEAD
     public Abonne_parent(int _id,
-=======
-    Abonne_parent(int _id,
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
                     String _nom,
                     String _prenom,
                     String _adresse,
@@ -25,11 +21,7 @@ public class Abonne_parent  extends Abonne{
             _carte_banquaire);
     }
 
-<<<<<<< HEAD
     public Abonne_parent(int _id,
-=======
-    Abonne_parent(int _id,
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
                     String _nom,
                     String _prenom,
                     String _adresse,
@@ -38,13 +30,7 @@ public class Abonne_parent  extends Abonne{
                     Vector<Historique> _historique,
                     Vector<Historique> _film_en_location,
                     Carte_banquaire _carte_banquaire,
-<<<<<<< HEAD
                     Vector<Abonne_enfant> _liste_enfant){
-=======
-                    Vector<Abonne_enfant> _liste_enfant,
-                    Vector<String> _restriction_categorie,
-                    int _restriction_age){
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         super(_id,
             _nom,
             _prenom,
@@ -55,11 +41,6 @@ public class Abonne_parent  extends Abonne{
             _film_en_location,
             _carte_banquaire);
         liste_enfant = _liste_enfant;
-<<<<<<< HEAD
-=======
-        restriction_categorie = _restriction_categorie;
-        restriction_age = _restriction_age;
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
     }
 
 

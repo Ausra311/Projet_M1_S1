@@ -1,9 +1,6 @@
 package DAO;
 
-<<<<<<< HEAD
 import fc.Abonne_enfant;
-=======
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
 import fc.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,11 +24,7 @@ public class ClientDAO extends DAO<Client> {
                     CarteBanquaire.setInt(1, obj.get_id());
                     CarteBanquaire.setString(2, obj.get_cb().get_nom());
                     CarteBanquaire.setString(3, obj.get_cb().get_type_carte());
-<<<<<<< HEAD
                     CarteBanquaire.setString(4, obj.get_cb().get_reference());
-=======
-                    CarteBanquaire.setInt(4, obj.get_cb().get_reference());
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         
                     Boolean b = Client.executeUpdate() > 0;
                     if(b){
@@ -50,13 +43,8 @@ public class ClientDAO extends DAO<Client> {
                 Abonne.setInt(1, obj.get_id());
                 Abonne.setString(2, obj.get_nom());
                 Abonne.setString(3, obj.get_prenom());
-<<<<<<< HEAD
                 Abonne.setString(4, obj.get_adresse());
                 Abonne.setString(5, obj.get_telephone());
-=======
-                Abonne.setInt(4, obj.get_addresse());
-                Abonne.setInt(5, obj.get_telephone());
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
                 Abonne.setInt(6, obj.get_solde());
                 Parent.setInt(1, obj.get_id());
 
@@ -78,21 +66,12 @@ public class ClientDAO extends DAO<Client> {
                 Abonne.setInt(1, obj.get_id());
                 Abonne.setString(2, obj.get_nom());
                 Abonne.setString(3, obj.get_prenom());
-<<<<<<< HEAD
                 Abonne.setString(4, obj.get_adresse());
                 Abonne.setString(5, obj.get_telephone());
                 Abonne.setInt(6, obj.get_solde());
                 Enfant.setInt(1, obj.get_id());
                 Enfant.setInt(2, obj.get_id()); 
                 Enfant.setInt(3, ((Abonne_enfant) obj).get_age());
-=======
-                Abonne.setInt(4, obj.get_addresse());
-                Abonne.setInt(5, obj.get_telephone());
-                Abonne.setInt(6, obj.get_solde());
-                Enfant.setInt(1, obj.get_id());
-                Enfant.setInt(2, obj.get_id_parent()); /// A voir le nom de la fonction
-                Enfant.setInt(3, obj.get_age());
->>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
 
 
                 Boolean b = Client.executeUpdate() > 0;
