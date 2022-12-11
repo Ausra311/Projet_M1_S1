@@ -12,7 +12,11 @@ public abstract class Support {
         return -1;
     }
 
+<<<<<<< HEAD
     public Boolean est_endommage(){
+=======
+    Boolean est_endommage(){
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         return false;
     }
 
@@ -28,11 +32,19 @@ public abstract class Support {
         return film;
     }
 
+<<<<<<< HEAD
     public void sortir_support(){
         //volontairement vide
     }
 
     public void retour(){
+=======
+    void sortir_support(){
+        //volontairement vide
+    }
+
+    void retour(){
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         //volontairement vide
     }
 }

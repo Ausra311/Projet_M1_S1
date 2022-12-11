@@ -5,7 +5,11 @@ import java.util.Vector;
 public class Abonne_enfant  extends Abonne{
     
 
+<<<<<<< HEAD
     public Abonne_enfant(int _id,
+=======
+    Abonne_enfant(int _id,
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
                     String _nom,
                     String _prenom,
                     String _adresse,
@@ -21,7 +25,11 @@ public class Abonne_enfant  extends Abonne{
             _carte_banquaire);
     }
 
+<<<<<<< HEAD
     public Abonne_enfant(int _id,
+=======
+    Abonne_enfant(int _id,
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
                     String _nom,
                     String _prenom,
                     String _adresse,

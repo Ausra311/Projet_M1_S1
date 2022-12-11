@@ -5,7 +5,11 @@ import java.util.Vector;
 public abstract class Abonne extends Client {
     
 
+<<<<<<< HEAD
     public Abonne(int _id,
+=======
+    Abonne(int _id,
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
             String _nom,
             String _prenom,
             String _adresse,
@@ -22,12 +26,20 @@ public abstract class Abonne extends Client {
         solde = _solde;
         nb_film_mensuel = 0;
         carte_banquaire = _carte_banquaire;
+<<<<<<< HEAD
+=======
+        nb_enfant = 0;
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         liste_enfant = new Vector<Abonne_enfant>();
         restriction_categorie = new Vector<String>();
         restriction_age = 0;
     }
 
+<<<<<<< HEAD
     public Abonne(int _id,
+=======
+    Abonne(int _id,
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
             String _nom,
             String _prenom,
             String _adresse,
@@ -46,6 +58,10 @@ public abstract class Abonne extends Client {
         solde = _solde;
         nb_film_mensuel = 0;
         carte_banquaire = _carte_banquaire;
+<<<<<<< HEAD
+=======
+        nb_enfant = 0;
+>>>>>>> 7656e9569456650c37b7f0d1604060bec87eec04
         liste_enfant = new Vector<Abonne_enfant>();
         restriction_categorie = new Vector<String>();
         restriction_age = 0;
