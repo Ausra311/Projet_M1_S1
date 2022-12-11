@@ -4,47 +4,59 @@ import java.util.Date;
 
 public class Location{
     private Client client;
-    private String type_client;
-    private Film film;
-    private Date date_emprunt;
+    private Historique historique;
     private Support support;
 
-    Location(Client c,String t,String s,Film f,Date d,Support su){
+    public Location(Client c,Historique histo,Support _support){
         client = c;
-        type_client = t;
-        film = f;
-        date_emprunt = d;
-        support = su;
+        historique = histo;
+        support = _support;
     }
-
 
     public void retour(){
         support.retour();
+        client.rendre(get_Film());
+        historique.rendre();
     }
 
+    public void debiter(){
+        client.debiterMono();
+    }
 
-   public void debiter(){
-    client.debiter();
-   }
-
-    public void louer(){
-        if (support.disponible()){
+    public void louer(Film film){
+        if (support.disponible() && client.peut_louer()){
             support.sortir_support();
+            client.louer(film);
         }
     }
     
     // get 
-    public Client get_client(){
+    public Client get_Client(){
         return client;
     }
-    public String get_type_client(){
-        return type_client;
+
+    public Film get_Historique(){
+        return historique.film;
     }
 
-    public Film film(){
-        return film;
+    public Film get_Film(){
+        return historique.film;
     }
+
+    public Support get_Support(){
+        return support;
+    }
+    
     public Date date_emprunt(){
-        return date_emprunt;
+        return historique.date_debut;
     }
-}
+
+    public Date date_rendu(){
+        return historique.date_fin;
+    }
+
+    public void mise_a_jour_client(){ // appelle une méthode de client qui permet de faire tous les changement nécessaire au compte client
+        client.louer(get_Film());
+    }
+} 
+ 

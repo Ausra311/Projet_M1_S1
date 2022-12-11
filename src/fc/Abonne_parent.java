@@ -3,27 +3,59 @@ package fc;
 import java.util.Vector;
 
 public class Abonne_parent  extends Abonne{
-    private int nb_enfant;
-    private Vector<Abonne_enfant> no_enfant;
     
-    Abonne_parent (){};
-
-    @Override 
-    public String type_client(){
-        return "Abonne_parent";
+    
+    public Abonne_parent(int _id,
+                    String _nom,
+                    String _prenom,
+                    String _adresse,
+                    String _telephone,
+                    int _solde, 
+                    Carte_banquaire _carte_banquaire){
+        super(_id,
+            _nom,
+            _prenom,
+            _adresse,
+            _telephone,
+            _solde, 
+            _carte_banquaire);
     }
+
+    public Abonne_parent(int _id,
+                    String _nom,
+                    String _prenom,
+                    String _adresse,
+                    String _telephone,
+                    int _solde, 
+                    Vector<Historique> _historique,
+                    Vector<Historique> _film_en_location,
+                    Carte_banquaire _carte_banquaire,
+                    Vector<Abonne_enfant> _liste_enfant){
+        super(_id,
+            _nom,
+            _prenom,
+            _adresse,
+            _telephone,
+            _solde, 
+            _historique,
+            _film_en_location,
+            _carte_banquaire);
+        liste_enfant = _liste_enfant;
+    }
+
+
 
     //Get :
     public int get_nb_enfant(){
-        return nb_enfant;
+        return liste_enfant.size();
     };
 
     public Vector<Abonne_enfant> get_no_enfant(){
-        return no_enfant;
+        return liste_enfant;
     }
 
-    public Vector<Film> get_historique_enfant(Abonne_enfant enfant){
-        return enfant.get_historiqe();
+    public Vector<Historique> get_historique_enfant(Abonne_enfant enfant){
+        return enfant.get_historique();
     }
 
     public int get_solde_enfant(Abonne_enfant enfant){
@@ -31,6 +63,12 @@ public class Abonne_parent  extends Abonne{
     }
 
     //Set :
+
+    public void add_enfant(Abonne_enfant enfant){
+        liste_enfant.add(enfant);
+    }
+
+
 
     public void add_restriction_enfant(Abonne_enfant enfant, String categorie){
         enfant.add_restriction_categorie(categorie);
@@ -56,6 +94,10 @@ public class Abonne_parent  extends Abonne{
         enfant.recharger(montant);
     }
 
+    @Override
+    public boolean peut_gerer_enfant(){
+        return true;    
+    }
 
     
 

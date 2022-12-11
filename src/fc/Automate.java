@@ -2,7 +2,7 @@ package fc;
 
 public class Automate {
 
-    Automate(){}
+    public Automate(){}
     
     public void sortir_DVD(int id){
         System.out.println("DVD sortie");

@@ -8,10 +8,10 @@ public class Film {
     private Vector<String> acteurs;
     private String resume;
     private Vector<String> genre;
-    private int restriction;
+    private int restriction; // age
     private int nb_location;
 
-    Film(int id,
+    public Film(int id,
         String _titre,
         String _realisateur, 
         Vector<String> _acteurs, 
@@ -63,16 +63,22 @@ public class Film {
         return nb_location;
     }
 
+    // les modifications des informations concernant le film
+
+    public void change_resume(String new_resume){
+        resume = new_resume;
+    }
+
+    public void set_restriction(int age){
+        restriction = age;
+    }
+
     public void add_genre(String g){
         genre.add(g);
     }
 
     public void suppr_genre(String g){
         genre.remove(g);
-    }
-
-    public void change_restriction(int i){
-        restriction = i;
     }
 
     public void nouvelle_location(){

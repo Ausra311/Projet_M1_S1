@@ -1,12 +1,28 @@
 package fc;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Historique {
-    Film film;
-    Date date;
-    Historique(Film _film, Date _date){
+    protected Film film;
+    public Date date_debut;
+    public Date date_fin;
+    public Historique(Film _film){
         film = _film;
-        date = _date;
+        date_debut = new Date();
+        
+    }
+
+    public Historique(Film _film,Date _date_debut,Date _date_fin){
+        film = _film;
+        date_debut = _date_debut;
+        date_fin = _date_fin;  
+    }
+
+    public Film get_film(){
+        return film;
+    }
+
+    public void rendre(){
+        date_fin = new Date();
     }
 }
