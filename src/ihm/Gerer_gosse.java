@@ -13,7 +13,7 @@ import java.awt.*;
 public class Gerer_gosse extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    Gerer_gosse(JFrame j, Interface i){
+    Gerer_gosse(JFrame j, Interface i,Film film){
         inter = i;
         Fenetre = j;
         JPanel centre = new JPanel();
@@ -121,7 +121,7 @@ public class Gerer_gosse extends JPanel {
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
             Fenetre.revalidate();
             }
         });

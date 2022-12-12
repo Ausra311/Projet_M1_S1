@@ -32,7 +32,7 @@ public class Interface {
         liste_genre.add("Action");
         liste_genre.add("Animation");
 
-        String resume1 = "Kiki est une jeune sorcière qui vient de fêter ses treize ans. C’est une date importante dans sa famille : traditionnellement à cet âge, les sorcières doivent quitter leurs parents et s’établir pour une année dans une nouvelle ville afin de parfaire leur apprentissage. Kiki, que cette idée met en joie, écoute le bulletin météo à la radio qui annonce beau temps. C’est décidé, elle partira le soir même ! Bien que sa mère soit un peu inquiète, elle n’essaye pas de différer le départ. Elle confie à sa fille la robe noire traditionnelle des sorcières, que Kiki trouve trop terne à son goût, tandis que son père appelle les voisins pour la cérémonie d’adieu. À la nuit tombante, la jeune sorcière est ainsi parée, avec sa petite radio, son paquetage, et son sarcastique chat noir Jiji qui a la faculté de parler avec Kiki. Elle enfourche le vieux balai magique de sa famille et s’envole vers sa nouvelle vie. ";
+        String resume1 = "<html><br/>Kiki est une jeune sorcière qui vient de fêter ses treize ans. C’est une date importante dans sa famille : traditionnellement à cet âge,<br/> les sorcières doivent quitter leurs parents et s’établir pour une année dans une nouvelle ville afin de parfaire leur apprentissage.<br/> Kiki, que cette idée met en joie, écoute le bulletin météo à la radio qui annonce beau temps. C’est décidé, elle partira le soir même !<br/> Bien que sa mère soit un peu inquiète, elle n’essaye pas de différer le départ. Elle confie à sa fille la robe noire traditionnelle des sorcières,<br/> que Kiki trouve trop terne à son goût, tandis que son père appelle les voisins pour la cérémonie d’adieu.<br/> À la nuit tombante, la jeune sorcière est ainsi parée, avec sa petite radio, son paquetage, et son sarcastique chat noir Jiji qui a la faculté de parler avec Kiki.<br/> Elle enfourche le vieux balai magique de sa famille et s’envole vers sa nouvelle vie.</html>";
         Vector<String> act1 = new Vector<String>();
         act1.add("Minami Takayama");
         act1.add("Rei Sakuma");
@@ -42,10 +42,10 @@ public class Interface {
         Film f1 = new Film(0, "Kiki", "Hayao Miyazaki", act1, resume1, genre1, 0, 0);
 
 
-        String resume2 = "L'univers de Star Wars se déroule dans une galaxie qui est le théâtre d'affrontements entre les Chevaliers Jedi et les Seigneurs noirs des Sith, personnes sensibles à la Force, un champ énergétique mystérieux leur procurant des pouvoirs psychiques. Les Jedi maîtrisent le Côté lumineux de la Force, pouvoir bénéfique et défensif, pour maintenir la paix dans la galaxie. Les Sith utilisent le Côté obscur, pouvoir nuisible et destructeur, pour leurs usages personnels et pour dominer la galaxie. ";
+        String resume2 = "<html><br/>L'univers de Star Wars se déroule dans une galaxie qui est le théâtre d'affrontements entre les Chevaliers Jedi et les Seigneurs noirs des Sith,<br/> personnes sensibles à la Force, un champ énergétique mystérieux leur procurant des pouvoirs psychiques.<br/> Les Jedi maîtrisent le Côté lumineux de la Force, pouvoir bénéfique et défensif, pour maintenir la paix dans la galaxie.<br/> Les Sith utilisent le Côté obscur, pouvoir nuisible et destructeur, pour leurs usages personnels et pour dominer la galaxie.<html>";
         Vector<String> act2 = new Vector<String>();
-        act1.add("Ewan McGregor");
-        act1.add("Natalie Portman");
+        act2.add("Ewan McGregor");
+        act2.add("Natalie Portman");
         Vector<String> genre2 = new Vector<String>();
         genre1.add("Action");
         Film f2 = new Film(1, "Star Wars", " 	George Lucas", act2, resume2, genre2, 12, 1);
@@ -56,13 +56,17 @@ public class Interface {
         liste_film.add(f2);
 
         DVD d1 = new DVD(f1, 0, false, true, 0);
-        DVD d2 = new DVD(f2, 1, false, true, 0);
+        DVD d2 = new DVD(f1, 1, false, true, 0);
         liste_support = new Vector<Support>();
         liste_support.add(d1);
         liste_support.add(d2);
 
 
 
+    }
+
+    public void deconnexion(){
+        client = null;
     }
 
     public Client get_client(){

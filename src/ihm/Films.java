@@ -17,17 +17,22 @@ public class Films extends JPanel{
     Films(JFrame f, boolean c,Interface in) {
     inter = in;
     connecter = c;
-    Client client = inter.get_client();
+    int solde = 0;
+    if(connecter){
+        Client client = inter.get_client();
+        solde = client.get_solde();
+        
+    }
     JFrame Fenetre = f;
     setLayout(new BorderLayout());
     JPanel centre = new JPanel();
     JPanel films = new JPanel();
     JPanel sud = new JPanel();
     liste_films = inter.get_liste_film();
-    int solde = client.get_solde();
+    
     JButton Retour = new JButton("Retour");
     JButton GestionCompte = new JButton("Mon Compte");
-    JLabel Solde = new JLabel("Votre solde : "+ solde + " €");
+    
     JTextField Recherche = new JTextField();
     Recherche.setFont(new Font("Arial",Font.PLAIN,20));
     Vector<String> genre = inter.get_liste_genre();
@@ -35,6 +40,7 @@ public class Films extends JPanel{
     JPanel bar_recherche = new JPanel();
     JButton chercher = new JButton("Chercher");
     JLabel cherche = new JLabel(" Chercher :");
+    JLabel Solde = new JLabel("Votre solde : "+ solde + " €");
     cherche.setFont(new Font("Arial",Font.PLAIN,20));
 
     films.setLayout(new StackLayout());
@@ -78,7 +84,7 @@ public class Films extends JPanel{
     GestionCompte.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,new Film(0,"","",null,"",null,0,0)));
             Fenetre.revalidate();
             }
     });

@@ -9,9 +9,11 @@ public class FicheFilm extends JPanel {
     boolean connecter;
     BackgroundPanel affiche;
     Interface inter;
-    FicheFilm(int id,JFrame f,boolean c,Interface i) {
+    Film film;
+    FicheFilm(int id,JFrame f,boolean c,Interface i,Film fi) {
     connecter =c;
     inter = i;
+    film = fi;
     JFrame Fenetre = f;
     JPanel Sud = new JPanel();
     JPanel Centre = new JPanel();
@@ -19,26 +21,24 @@ public class FicheFilm extends JPanel {
     JButton LouerDVD = new JButton("LouerDVD");
     JPanel Location = new JPanel();
     JButton Retour = new JButton("Retour");
-    boolean dispoDVD = true;
-    JTextArea resume ;
+    boolean dispoDVD = inter.dvd_dispo(fi);
+    JPanel centre2 = new JPanel();
+    JLabel real = new JLabel("Réalisateur : " + film.get_realisateur());
+    JLabel acteur = new JLabel("Acteur : "+film.get_acteurs().toString().substring(1));
+    centre2.setLayout(new StackLayout());
+
+    JLabel titre = new JLabel(film.get_titre());
+    titre.setFont(new Font("Arial",Font.BOLD,40));
+    
+    JLabel resume = new JLabel(film.get_resume());
     
     Retour.setPreferredSize(new Dimension(110,50));
-    
-    switch(id){
-        case 0:
-            resume = new JTextArea("kiki la sorciere");
-            affiche = new BackgroundPanel("/images/0.png",1);
-        break;
-        case 1:
-            resume = new JTextArea("Ouuuuaaah c'est la merde");
-            affiche = new BackgroundPanel("/images/1.png",1);
-        break;
-        default:
-            resume = new JTextArea("404 not found");
-            affiche = new BackgroundPanel("/images/err404.png",1);
-        break;
-    }
-    resume.setEditable(false);
+    String currentPath = System.getProperty("user.dir");
+
+    affiche = new BackgroundPanel(currentPath+"/src/ihm/images/"+film.get_id()+".png",1);
+
+    System.out.println(currentPath+"/src/ihm/images/"+film.get_id()+".png");
+
     Retour.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
@@ -50,11 +50,11 @@ public class FicheFilm extends JPanel {
     {
         public void actionPerformed(ActionEvent e){
             if(connecter){
-            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter));
+            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film));
             Fenetre.revalidate();
             }
             else{
-                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter));
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film));
                 Fenetre.revalidate();
             }
         }
@@ -63,11 +63,11 @@ public class FicheFilm extends JPanel {
     {
         public void actionPerformed(ActionEvent e){
             if(connecter){
-            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter));
+            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film));
             Fenetre.revalidate();
             }
             else{
-                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter));
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film));
                 Fenetre.revalidate();
             }
         }
@@ -78,10 +78,16 @@ public class FicheFilm extends JPanel {
     Centre.setLayout(new BorderLayout());
     affiche.setPreferredSize(new Dimension(500,100));
     Centre.add(affiche,BorderLayout.WEST);
-    Centre.add(resume,BorderLayout.CENTER);
-    if((!dispoDVD)){
-        LouerDVD.setVisible(false);
-    }
+
+    centre2.add(titre);
+    centre2.add(resume);
+    centre2.add(real);
+    centre2.add(acteur);
+    Centre.add(centre2,BorderLayout.CENTER);
+
+
+    LouerDVD.setEnabled(dispoDVD);
+    
     Location.add(LouerDVD);
     Location.add(LouerQR);
     Sud.add(Retour,BorderLayout.WEST);
