@@ -9,7 +9,7 @@ public class Recharger extends JPanel {
        JFrame Fenetre;
        int pred;
        Interface inter;
-       Recharger(JFrame f, int i,Interface in) {
+       Recharger(JFrame f, int i,Interface in,Film film) {
               Fenetre = f;
               pred = i;
               inter = in;
@@ -63,10 +63,10 @@ public class Recharger extends JPanel {
               {
                      public void actionPerformed(ActionEvent e){
                      if(pred==0){
-                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter));
+                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
                             Fenetre.revalidate();
                      }else{
-                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter));
+                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film));
                             Fenetre.revalidate();                
                      }
               }
@@ -75,10 +75,10 @@ public class Recharger extends JPanel {
               {
                      public void actionPerformed(ActionEvent e){
                      if(pred==0){
-                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter));
+                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
                             Fenetre.revalidate();
                      }else{
-                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter));
+                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film));
                             Fenetre.revalidate();                
                      }
               }

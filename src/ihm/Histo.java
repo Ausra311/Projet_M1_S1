@@ -9,7 +9,7 @@ import fc.*;
 public class Histo extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    Histo(JFrame j,Interface in){
+    Histo(JFrame j,Interface in,Film film){
         Fenetre = j;
         inter = in;
         JPanel nord = new JPanel();
@@ -40,7 +40,7 @@ public class Histo extends JPanel {
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
             Fenetre.revalidate();
             }
         });

@@ -11,7 +11,7 @@ import fc.*;
 public class Rendre extends JPanel {
     boolean connecter;
     Interface inter;
-    Automate auto;
+    Automate auto = new Automate();
     boolean casser = false;
 
     Rendre(JFrame f,boolean c,Interface i){

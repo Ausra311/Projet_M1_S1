@@ -3,6 +3,7 @@ package ihm;
 
 import javax.swing.*;
 import fc.*;
+import java.awt.Toolkit;
 
 public class Main {
 
@@ -16,7 +17,8 @@ public class Main {
 
         Fenetre.setContentPane(accueil);
         Fenetre.setTitle("AL2000");
-	    Fenetre.setSize(1200,800);
+        Fenetre.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+	    //Fenetre.setSize(1200,800);
 	    Fenetre.setVisible(true);
     }
 

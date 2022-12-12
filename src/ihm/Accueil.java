@@ -23,7 +23,7 @@ public class Accueil extends JPanel{
         JButton Louer = new JButton("Louer");
         JButton Connexion = new JButton("Connexion");
         JButton Rendre = new JButton("Rendre  ");
-   
+        JButton Deconnexion = new JButton ("Deconnexion");
         
         // Placement
         JPanel Haut = new JPanel();
@@ -46,7 +46,18 @@ public class Accueil extends JPanel{
         Connexion.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Connexion(Fenetre,connecter,0,inter));
+            Fenetre.setContentPane(new Connexion(Fenetre,connecter,0,inter,new Film(0,"","",null,"",null,0,0)));
+            Fenetre.revalidate();
+            }
+        });
+        Deconnexion.setPreferredSize(new Dimension(200,40));
+        Deconnexion.setFont(new Font("Arial",Font.BOLD,15));
+        Deconnexion.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e){
+            inter.deconnexion();
+            connecter = false;
+            Fenetre.setContentPane(new Accueil(Fenetre,connecter,inter));
             Fenetre.revalidate();
             }
         });
@@ -60,9 +71,17 @@ public class Accueil extends JPanel{
             }
         });
         // Panel principal
+        if(connecter){
+            Connexion.setVisible(false);
+            Deconnexion.setVisible(true);
+        }else{
+            Connexion.setVisible(true);
+            Deconnexion.setVisible(false);            
+        }
         Location.add(Louer,BorderLayout.CENTER);
         Boutons.add(Rendre);
         Boutons.add(Connexion);
+        Boutons.add(Deconnexion);
         add(Haut);
         add(Location);
         add(Boutons);       

@@ -78,4 +78,9 @@ public class Abonne_enfant  extends Abonne{
     public String type_client(){
         return "Abonne_enfant";
     }
+
+    public boolean peut_louer(Film f){
+        this.peut_louer();
+        return true;
+    }
 }

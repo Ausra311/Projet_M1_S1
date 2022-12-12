@@ -11,10 +11,12 @@ public class Louer_abo extends JPanel{
     JFrame Fenetre;
     boolean connecter;
     Interface inter;
-    Louer_abo(JFrame j,boolean c,Interface i){
+    Film film;
+    Louer_abo(JFrame j,boolean c,Interface i,Film fi){
         connecter =c;
         Fenetre = j;
         inter = i;
+        film = fi;
         setLayout(new BorderLayout());
         JPanel sud = new JPanel();
         sud.setLayout(new BorderLayout());
@@ -48,7 +50,7 @@ public class Louer_abo extends JPanel{
         retour.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new FicheFilm(0,Fenetre,connecter,inter));
+            Fenetre.setContentPane(new FicheFilm(0,Fenetre,connecter,inter,fi));
             Fenetre.revalidate();
             }
         });
@@ -62,7 +64,7 @@ public class Louer_abo extends JPanel{
         recharger.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Recharger(Fenetre,1,inter));
+            Fenetre.setContentPane(new Recharger(Fenetre,1,inter,film));
             Fenetre.revalidate();
             }
         });

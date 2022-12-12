@@ -10,9 +10,11 @@ import fc.*;
 public class Louer_non_abo extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    Louer_non_abo(JFrame j,Interface i){
+    Film film;
+    Louer_non_abo(JFrame j,Interface i,Film fi){
         Fenetre = j;
         inter = i;
+        film = fi;
         setLayout(new BorderLayout());
         JPanel sud = new JPanel();
         sud.setLayout(new BorderLayout());
@@ -44,14 +46,14 @@ public class Louer_non_abo extends JPanel {
         retour.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new FicheFilm(0,Fenetre,false,inter));
+            Fenetre.setContentPane(new FicheFilm(0,Fenetre,false,inter,film));
             Fenetre.revalidate();
             }
         });
         connecter.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Connexion(Fenetre,false,1,inter));
+            Fenetre.setContentPane(new Connexion(Fenetre,false,1,inter,film));
             Fenetre.revalidate();
             }
         });

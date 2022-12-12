@@ -9,7 +9,7 @@ import fc.*;
 public class GestionCompte extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    GestionCompte(JFrame j,Interface i){
+    GestionCompte(JFrame j,Interface i,Film film){
         Fenetre =j;
         inter =i;
         setLayout(new BorderLayout());
@@ -60,21 +60,21 @@ public class GestionCompte extends JPanel {
         Histo.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Histo(Fenetre,inter));
+            Fenetre.setContentPane(new Histo(Fenetre,inter,film));
             Fenetre.revalidate();
             }
         });
         Recharger.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Recharger(Fenetre,0,inter));
+            Fenetre.setContentPane(new Recharger(Fenetre,0,inter,film));
             Fenetre.revalidate();
             }
         });
         GererMioche.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Gerer_gosse(Fenetre,inter));
+            Fenetre.setContentPane(new Gerer_gosse(Fenetre,inter,film));
             Fenetre.revalidate();
             }
         });
