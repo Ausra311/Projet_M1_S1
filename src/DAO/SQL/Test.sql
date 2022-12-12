@@ -81,3 +81,8 @@ insert into Genre values (2, 'Fanstastique');
 insert into Genre values (1, 'Fanstastique');
 
 insert into Restriction values (6, 'Action');
+
+insert into DVD values (1, 'Bon', 1);
+insert into DVD values (2, 'Bon', 2);
+insert into DVD values (3, 'Bon', 3);
+insert into DVD values (4, 'Bon', 4);

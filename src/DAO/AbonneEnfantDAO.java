@@ -66,27 +66,30 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
             res_enfant = info_enfant.executeQuery();
             res_genre = info_genre.executeQuery();
             res_location = info_location.executeQuery();
-           
-            if (res_abonne.first()){
-
+            
+            if (res_abonne.next()){
+              
                 nom = res_abonne.getString(2);
                 prenom = res_abonne.getString(3);
                 adresse = res_abonne.getString(4);
                 telephone = res_abonne.getString(5);
                 solde = res_abonne.getInt(6);
+
+                res_enfant.next();
+
                 restriction_age = res_enfant.getInt(3);
-                
 
                 while (res_location.next()){
-                    
-                    info_film.setInt(1, res_location.getInt(2));
+
+                    int id_film = res_location.getInt(2);
+                    info_film.setInt(1, id_film);
                     res_film = info_film.executeQuery();
 
                     genre = new Vector<String>();
                     genre_Film.setInt(1, res_film.getInt(1));
                     res_genre_film = genre_Film.executeQuery();
                     while (res_genre_film.next()) {
-                        genre.add(res_genre_film.getString(1));
+                        genre.addElement(res_genre_film.getString(1));
                     }
                     
                     L_acteurs = new Vector<String>();
@@ -94,17 +97,17 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
                     res_acteur = acteur_Film.executeQuery();
                     while (res_acteur.next()) {
                         acteur = res_acteur.getString(1) + " " + res_acteur.getString(2);
-                        L_acteurs.add(acteur);
+                        L_acteurs.addElement(acteur);
                     }
 
                     f = new Film(res_film.getInt(1), res_film.getString(2), res_film.getString(3), L_acteurs, res_film.getString(5), genre, res_film.getInt(6), res_film.getInt(7));
 
                     if (res_location.getInt(4) == 0){
-                        film_en_location.add(new Historique(f, res_location.getDate(3), null));
-                        historique.add(new Historique(f, res_location.getDate(3), null));
+                        film_en_location.addElement(new Historique(f, res_location.getDate(3), null));
+                        historique.addElement(new Historique(f, res_location.getDate(3), null));
 
                     } else {
-                        historique.add(new Historique(f, res_location.getDate(3), res_location.getDate(5)));
+                        historique.addElement(new Historique(f, res_location.getDate(3), res_location.getDate(5)));
                     }
 
                     date_location.setTime(res_location.getDate(3));
@@ -113,13 +116,15 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
                     if (date_location.get(Calendar.MONTH) == date_actuel.get(Calendar.MONTH)){
                         nb_film_mensuel = nb_film_mensuel + 1;
                     }
+                    res_location.next();
                 }
                 enfant = new Abonne_enfant(id, nom, prenom, adresse, telephone, solde, historique, film_en_location, null);
                 while (res_genre.next()){
                     enfant.add_restriction_categorie(res_genre.getString(2));
+                    res_genre.next();
                 }
                 enfant.add_restriction_age(restriction_age);
-                res.add(enfant);
+                res.addElement(enfant);
             }
         }
         catch (SQLException e) {
@@ -136,16 +141,16 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
             
             suppr_restriction.setInt(1, obj.get_id());
             in_restriction.setInt(1, obj.get_id());
-            upd_age.setInt(1, obj.get_id());
+            upd_age.setInt(1, obj.get_age());
             upd_age.setInt(2, obj.get_id());
 
             suppr_restriction.executeQuery();
             upd_age.executeQuery();
             upd_age.executeQuery();
 
-            Iterator<String> itr = obj.get_restriction_categorie().iterator();
-            while (itr.hasNext()){
-                in_restriction.setString(2, itr.next());
+            Vector<String> restriction = obj.get_restriction_categorie();
+            for (int i =0; i < restriction.size(); i++){
+                in_restriction.setString(2, restriction.get(i));
                 in_restriction.executeQuery();  
             }
         }

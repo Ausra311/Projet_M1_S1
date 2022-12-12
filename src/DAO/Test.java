@@ -1,15 +1,12 @@
 package DAO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ListIterator;
 import java.util.Vector;
+import java.util.*;
 
-import fc.Abonne_enfant;
-import fc.Abonne_parent;
-import fc.Client;
-import fc.DVD;
+import fc.*;
 
 public class Test {
 	public static boolean drop_table(Connection conn) throws SQLException {
@@ -150,6 +147,7 @@ public class Test {
 
 		conn.prepareStatement("insert into TypeGenre values ('Action')").execute();
 		conn.prepareStatement("insert into TypeGenre values ('Fanstastique')").execute();
+		conn.prepareStatement("insert into TypeGenre values ('Aventure')").execute();
 
 		conn.prepareStatement("insert into Genre values (2, 'Action')").execute();
 		conn.prepareStatement("insert into Genre values (2, 'Fanstastique')").execute();
@@ -185,6 +183,11 @@ public class Test {
 		conn.prepareStatement("insert into Location values (1, 1, SYSDATE, 0, null)").execute();
 		conn.prepareStatement("insert into Location values (2, 2, SYSDATE, 0, null)").execute();
 		
+		conn.prepareStatement("insert into DVD values (1, 'Bon', 1)").execute();
+		conn.prepareStatement("insert into DVD values (2, 'Bon', 2)").execute();
+		conn.prepareStatement("insert into DVD values (3, 'Bon', 3)").execute();
+		conn.prepareStatement("insert into DVD values (4, 'Bon', 4)").execute();
+
 		//conn.prepareStatement("").execute();
 
 		return false;
@@ -205,14 +208,56 @@ public class Test {
         ClientDAO Client = new ClientDAO(Session.getSession());
 		AbonneDAO A = new AbonneDAO(Session.getSession());
 		AbonneEnfantDAO Ae = new AbonneEnfantDAO(Session.getSession());
+		AbonneParentDAO Ap = new AbonneParentDAO(Session.getSession());
+		FilmDAO F = new FilmDAO(Session.getSession());
+		DVDDAO D = new DVDDAO(Session.getSession());
+		LocationDAO L = new LocationDAO(Session.getSession());
 
-		Abonne_parent Abonne_p = new Abonne_parent(10, "Test", "prenom", "adresse", "telephone", 15, null, null, null, null);
-		Abonne_enfant Abonne_e = (Ae.read(6)).get(1);
+		Abonne_parent parent = new Abonne_parent(10, "Test", "prenom", "adresse", "telephone", 15, null, null, null, null);
+		Client.create(parent, "Abonne Parent");
 
-		Client.create(Abonne_p, "Abonne_parent");
-		//A.update(Abonne_e);
+		Vector<Abonne_enfant> Abonne_e = Ae.read(6);
+		System.out.println(Abonne_e.size());
+		Abonne_enfant enfant = Abonne_e.get(0);
 		
+		enfant.add_restriction_categorie("Aventure");
+		enfant.add_restriction_age(0);
+		Ae.update(enfant);
+		System.out.println("Mise à jour des restriction");
+		System.out.println("Id enfant " + enfant.get_id());
+		
+		Vector<Abonne_parent> Abonne_p = Ap.read(10);
+		System.out.println(Abonne_p.size());
 
+		
+		Vector<Film> film_p = F.read(parent);
+		System.out.println("Film parent :" + film_p.size());
+		assert(film_p.size() == 2);
+		
+		Vector<Film> film_e = F.read(enfant);
+		System.out.println("Film Enfant : " + film_e.size());
+		assert(film_e.size() == 1);
+		
+		Film f = film_p.get(0);
+		Vector<DVD> Dvd = D.read(f);
+		System.out.println("Nombre de DVD dispo : " + Dvd.size());
+		assert(Dvd.size() == 2);
+
+		DVD d = Dvd.get(0);
+		
+		/*
+		Historique h = new Historique(f, new Date(), null);
+		Location loc = new Location(parent, h, d);
+		L.create(loc , null);
+		System.out.println("Louer");
+		loc.retour();
+		L.update(loc);
+		System.out.println("Rendu");
+		*/
+		D.update(d);
+		System.out.println("Endommage");
+		A.update(enfant);
+		System.out.println("Abonne");
         s.close();
     }
 }

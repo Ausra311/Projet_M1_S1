@@ -54,7 +54,7 @@ public class AbonneParentDAO extends DAO<Abonne_parent>{
             PreparedStatement info_location = conn.prepareStatement("select * from Location where noClient = ?");
             PreparedStatement info_film = conn.prepareStatement("select * from Film where noFilm in (Select noFilm from Support where noSupport = ?)");
             PreparedStatement genre_Film = conn.prepareStatement("SELECT genre FROM Genre WHERE noFilm = ?");
-            PreparedStatement acteur_Film = conn.prepareStatement("SELECT nomActeur, prenomActeur FROM Acteuur WHERE noFilm = ?")){   
+            PreparedStatement acteur_Film = conn.prepareStatement("SELECT nomActeur, prenomActeur FROM Acteur WHERE noFilm = ?")){   
            
             info_abonne.setInt(1, id);
             info_enfant.setInt(1, id);
@@ -78,6 +78,7 @@ public class AbonneParentDAO extends DAO<Abonne_parent>{
                     
                     info_film.setInt(1, res_location.getInt(2));
                     res_film = info_film.executeQuery();
+                    res_film.next();
 
                     genre = new Vector<String>();
                     genre_Film.setInt(1, res_film.getInt(1));
@@ -112,7 +113,8 @@ public class AbonneParentDAO extends DAO<Abonne_parent>{
                     }
                 }
                 while(res_enfant.next()){
-                liste_enfant.addAll(EnfantDAO.read(res_enfant.getInt(1)));
+                    liste_enfant.addAll(EnfantDAO.read(res_enfant.getInt(1)));
+                    res_enfant.next();
                 }
 
                 parent = new Abonne_parent(id, nom, prenom, adresse, telephone, solde, historique, film_en_location, null, liste_enfant);

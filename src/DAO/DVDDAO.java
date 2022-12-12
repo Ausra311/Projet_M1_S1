@@ -23,26 +23,33 @@ public class DVDDAO extends DAO<DVD>{
 
     @Override
     public Vector<DVD> read(Object obj) throws SQLException {
-           DVD dvd = null;
-           Vector<DVD> dv = new Vector<DVD>();
+           Vector<DVD> D = new Vector<DVD>();
            Film f = (Film) obj;
-           try (PreparedStatement Resul = conn.prepareStatement("select distinct d.noSupport , d.etat , d.emplacement from DVD d , ((Select d.noSupport from DVD d, Support s where s.nofilm = ? and s.nosupport = d.nosupport) MINUS (Select l.noSupport from Location l, Support s where s.nofilm = ? and s.nosupport = l.nosupport) k where k.noSupport = d.noSupport)")){   
-                 Resul.setInt(1,f.get_id());
-                 Resul.setInt(2,f.get_id());
-                 ResultSet resultSet = Resul.executeQuery();
-                 if (resultSet.next()) {
-                    int nosupport = resultSet.getInt(1);
-                    String etat = resultSet.getString(2);
-                    int emplacement = resultSet.getInt(3);
-                    Boolean b = Boolean.valueOf(etat);
-                    dvd = new DVD(f, emplacement,b,true,nosupport);
-                    dv.add(dvd);  
+           try (PreparedStatement Info_support = conn.prepareStatement(("(Select noSupport from Support S where noFilm = ?) MINUS (Select noSupport from Location where retourne = 0)"));
+                PreparedStatement Info_DVD = conn.prepareStatement("Select * from DVD where nosupport = ?")){
+           
+                ResultSet support, dvd;
+                Info_support.setInt(1, f.get_id());
+                support = Info_support.executeQuery();
+
+                while (support.next()){
+                    Info_DVD.setInt(1, support.getInt(1));
+                    dvd = Info_DVD.executeQuery();
+                    
+                    if (dvd.next()){
+                        if (dvd.getString(2) == "Bon"){
+                            D.add(new DVD(f, dvd.getInt(3), false, true, dvd.getInt(1)));
+                            
+                        } else {
+                            D.add(new DVD(f, dvd.getInt(3), true, true, dvd.getInt(1)));
+                        }
+                    }
                 }
            }
             catch (SQLException e) {
                 e.printStackTrace();
             }
-            return dv;
+            return D;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class AbonneDAO extends DAO<Abonne>{
     @Override
     public boolean update(Abonne obj) throws SQLException {
         try (PreparedStatement req_client = conn.prepareStatement("update Client Set typeClient = 'Abonne Parent' where noClient = ?");
-            PreparedStatement nv_parent = conn.prepareStatement("Insert into AbonneParent value ( ?, 0)");
+            PreparedStatement nv_parent = conn.prepareStatement("Insert into AbonneParent values ( ?, 0)");
             PreparedStatement suppr_enfant = conn.prepareStatement("Delete AbonneEnfant where noClient = ?");
             PreparedStatement suppr_restriction = conn.prepareStatement("Delete Restriction where noClient = ?")){
             
@@ -36,10 +36,11 @@ public class AbonneDAO extends DAO<Abonne>{
             suppr_enfant.setInt(1, obj.get_id());
             suppr_restriction.setInt(1, obj.get_id());
 
-            req_client.executeQuery();
-            nv_parent.executeQuery();
-            suppr_enfant.executeQuery();
-            suppr_restriction.executeQuery();  
+            req_client.executeUpdate();
+            suppr_restriction.execute();  
+            suppr_enfant.execute();
+            nv_parent.execute();
+
         }
         catch (SQLException e) {
             e.printStackTrace();
