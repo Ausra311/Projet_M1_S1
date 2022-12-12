@@ -185,7 +185,7 @@ public class Test {
 	public static boolean initialisation (Connection conn) throws SQLException{	
 		drop_table(conn);
         init_table(conn);
-		insert_table(conn);
+		//insert_table(conn);
 		return false;
 	}
 
