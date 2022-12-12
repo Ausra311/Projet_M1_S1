@@ -35,7 +35,6 @@ public class Test {
 			
 			System.out.print(drop.get(i));
 			conn.prepareStatement("Drop table " + drop.get(i)).execute();
-			//drop_table.execut();
 		}
 		
 		return false;
@@ -138,21 +137,69 @@ public class Test {
 		return false;
 	}
 
+	public static boolean insert_table(Connection conn) throws SQLException {
+		conn.setAutoCommit(true);
+				
+		System.out.println("insert");
+
+		conn.prepareStatement("insert into Film values (1, 'Totoro', 'Eva', 2000, 'totoro', 0, 0)").execute();
+		conn.prepareStatement("insert into Film values (2, 'Avenger', 'Eva', 2000, 'superheros', 0, 0)").execute();
+
+		conn.prepareStatement("insert into Support values (1, 1, 'DVD')").execute();
+		conn.prepareStatement("insert into Support values (2, 1, 'DVD')").execute();
+		conn.prepareStatement("insert into Support values (3, 1, 'DVD')").execute();
+		conn.prepareStatement("insert into Support values (4, 2, 'DVD')").execute();
+
+		conn.prepareStatement("insert into Client values (1, 'Sans Carte')").execute();
+		conn.prepareStatement("insert into Client values (2, 'Abonne Parent')").execute();
+		conn.prepareStatement("insert into Client values (3, 'Sans Carte')").execute();
+		conn.prepareStatement("insert into Client values (5, 'Abonne Parent')").execute();
+		conn.prepareStatement("insert into Client values (6, 'Abonne Enfant')").execute();
+		conn.prepareStatement("insert into Client values (7, 'Abonne Enfant')").execute();
+
+		conn.prepareStatement("insert into CarteBancaire values (1,'UGA', 'Etudiant','42' ,SYSDATE)").execute();
+
+		conn.prepareStatement("insert into Abonne values (2, 'André', 'Paul', 'Grenoble', '0000000000', 15)").execute();
+		conn.prepareStatement("insert into Abonne values (5, 'GAILLARD', 'Eva', 'Grenoble', '0000000000', 15)").execute();
+		conn.prepareStatement("insert into Abonne values (6, 'ZAGHDAR', 'Bouchra', 'Grenoble', '0000000000', 15)").execute();
+		conn.prepareStatement("insert into Abonne values (7, 'BERENGUIER', 'Lucas', 'Grenoble', '0000000000', 15)").execute();
+		
+		conn.prepareStatement("insert into AbonneParent values (2, 0)").execute();
+		conn.prepareStatement("insert into AbonneParent values (5, 0)").execute();
+
+		conn.prepareStatement("insert into AbonneEnfant values (6, 5, 0)").execute();
+		conn.prepareStatement("insert into AbonneEnfant values (7, 5, 0)").execute();
+
+		conn.prepareStatement("insert into Location values (1, 1, SYSDATE, 0, null)").execute();
+		conn.prepareStatement("insert into Location values (2, 2, SYSDATE, 0, null)").execute();
+		conn.prepareStatement("insert into Location values (2, 3, SYSDATE, 0, null)").execute();
+		conn.prepareStatement("insert into Location values (2, 4, SYSDATE, 0, null)").execute();
+		
+		//conn.prepareStatement("").execute();
+
+		return false;
+	}
+
 	public static boolean initialisation (Connection conn) throws SQLException{	
 		drop_table(conn);
         init_table(conn);
+		insert_table(conn);
 		return false;
 	}
 
     public static void main(String argv[]) throws SQLException{
         Session s = new Session();
         s.open();
-        drop_table(Session.getSession());
-        init_table(Session.getSession());
-
+        initialisation(Session.getSession());
+        
         ClientDAO Client = new ClientDAO(Session.getSession());
 		Abonne_parent Abonne_p = new Abonne_parent(10, "Test", "prenom", "adresse", "telephone", 15, null, null, null, null);
 		Client.create(Abonne_p, "Abonne_parent");
+
+
+
+
+		
 		
         s.close();
     }

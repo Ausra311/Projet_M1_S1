@@ -38,7 +38,7 @@ insert into AbonneEnfant values (6, 5, 0);
 insert into AbonneEnfant values (7, 5, 0);
 
 -- Faire en sorte qu'un abonne ne peut être que dans son type
--- insert into AbonneParent values (6, 5, 0);
+-- insert into AbonneParent values (6, 0);
 
 -- Insertion dans Film :
 insert into Film values (1, 'Totoro', 'Eva', 2000, 'totoro', 0, 0);
@@ -62,9 +62,9 @@ insert into Location values (2, 2, SYSDATE, 0);
 insert into Location values (2, 3, SYSDATE, 0);
 insert into Location values (2, 4, SYSDATE, 0);
 -- Doit retourner des erreurs (Trigger LocationFilm):
-insert into Location values (2, 5, SYSDATE, 0);
-insert into Location values (1, 5, SYSDATE, 0);
-insert into Location values (5, 1, SYSDATE, 0);
+insert into Location values (2, 5, SYSDATE, 0, null);
+insert into Location values (1, 5, SYSDATE, 0, null);
+insert into Location values (5, 1, SYSDATE, 0, null);
 
 update Abonne set solde = 10 where noClient = 6;
-insert into Location values (6, 5, SYSDATE, 0);
+insert into Location values (6, 5, SYSDATE, 0, null);
