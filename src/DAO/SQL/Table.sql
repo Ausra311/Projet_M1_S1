@@ -42,7 +42,7 @@ Create table Location (
     noSupport number(10) references Support(noSupport),
     dateEmprunt date,
     retourne number(1) check (retourne between 0 and 1),
-    dateRetour date;
+    dateRetour date,
     primary key (noClient, noSupport, dateEmprunt)
 );
 
