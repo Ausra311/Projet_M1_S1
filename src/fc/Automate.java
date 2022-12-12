@@ -18,4 +18,7 @@ public class Automate {
        System.out.println("Impression....Ticket imprimé"); 
 
     }
+    public int lire_disque_rendu(){
+        return 2;
+    }
 }

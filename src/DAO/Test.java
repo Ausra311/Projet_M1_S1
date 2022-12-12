@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ListIterator;
 import java.util.Vector;
 
 import fc.Abonne_parent;
@@ -50,7 +49,8 @@ public class Test {
 				+ "    noClient number(10) primary key check (noClient between 1 and 9999999999),\r\n"
 				+ "    typeClient varchar2(20) check (typeClient in ('Abonne Parent', 'Abonne Enfant', 'Sans Carte'))\r\n"
 				+ ")");
-		table.add("Film (\r\n"
+				
+		table.add("Create table Film (\r\n"
 				+ "    noFilm number(10) primary key check (noFilm between 1 and 9999999999),\r\n"
 				+ "    titreFilm varchar2(20),\r\n"
 				+ "    nomRealisateur varchar2(20),\r\n"
@@ -59,75 +59,77 @@ public class Test {
 				+ "    restrictionAge number(2) check (restrictionAge in (10, 12, 16, 18, 0)),\r\n"
 				+ "    nbLoue number(10)\r\n"
 				+ ")");
-		table.add("TypeGenre (\r\n"
+		table.add("Create table TypeGenre (\r\n"
 				+ "    genre varchar2(20) primary key\r\n"
 				+ ")");
-		table.add("Support (\r\n"
+		table.add("Create table Support (\r\n"
 				+ "    noSupport number(10) primary key check (noSupport between 1 and 9999999999),\r\n"
 				+ "    noFilm number(10) references Film(noFilm),\r\n"
 				+ "    typeSupport varchar2(20) check (typeSupport in ('QRCode', 'DVD'))\r\n"
 				+ ")");
-		table.add("Location (\r\n"
+		table.add("\r\n"
+				+ "Create table Location (\r\n"
 				+ "    noClient number(10) references Client(noClient),\r\n"
 				+ "    noSupport number(10) references Support(noSupport),\r\n"
 				+ "    dateEmprunt date,\r\n"
 				+ "    retourne number(1) check (retourne between 0 and 1),\r\n"
-				+ "    dateRetour date,\r\n"
+				+ "    dateRetour date;\r\n"
 				+ "    primary key (noClient, noSupport, dateEmprunt)\r\n"
 				+ ")");
-		table.add("Abonne ("
-				+ "    noClient number(10) references Client(noClient),"
-				+ "    nomAbonne varchar2(20),"
-				+ "    prenomAbonne varchar2(20),"
-				+ "    adAbonne varchar2(100),"
-				+ "    noTel varchar(11),"
-				+ "    solde number(4),"
-				+ "    primary key (noClient)"
+		table.add("Create table Abonne (\r\n"
+				+ "    noClient number(10) references Client(noClient),\r\n"
+				+ "    nomAbonne varchar2(20),\r\n"
+				+ "    prenomAbonne varchar2(20),\r\n"
+				+ "    adAbonne varchar2(100),\r\n"
+				+ "    noTel varchar(11),\r\n"
+				+ "    solde number(4),\r\n"
+				+ "    primary key (noClient)\r\n"
 				+ ")");
-		table.add("CarteBancaire ("
-				+ "    noClient number(10) references Client(noClient),"
-				+ "    nomBanque varchar2(20),"
-				+ "    typeCarte varchar2(20),"
-				+ "    refBancaire varchar(12),"
-				+ "    dateUtil date,primary key (noClient)"
+		table.add("Create table CarteBancaire(\r\n"
+				+ "    noClient number(10) references Client(noClient),\r\n"
+				+ "    nomBanque varchar2(20),\r\n"
+				+ "    typeCarte varchar2(20),\r\n"
+				+ "    refBancaire varchar(12),\r\n"
+				+ "    dateUtil date,\r\n"
+				+ "    primary key (noClient)\r\n"
 				+ ")");
-		table.add("AbonneParent ("
-				+ "noClient number(10) references Abonne(noClient),"
-				+ "nbEnfant number(2) check (nbEnfant between 0 and 99),"
-				+ "primary key (noClient)"
+		table.add("Create table AbonneParent (\r\n"
+				+ "    noClient number(10) references Abonne(noClient),\r\n"
+				+ "    nbEnfant number(2) check (nbEnfant between 0 and 99),\r\n"
+				+ "    primary key (noClient)\r\n"
 				+ ")");
-		table.add("AbonneEnfant ("
-				+ "noClient number(10) references Abonne(noClient),"
-				+ "noParent number(10) references AbonneParent(noClient),"
-				+ "restrictionAge number(2) check (restrictionAge in (10, 12, 16, 18, 0)),"
-				+ "primary key (noClient)"
+		table.add("Create table AbonneEnfant (\r\n"
+				+ "    noClient number(10) references Abonne(noClient),\r\n"
+				+ "    noParent number(10) references AbonneParent(noClient),\r\n"
+				+ "    restrictionAge number(2) check (restrictionAge in (10, 12, 16, 18, 0)),\r\n"
+				+ "    primary key (noClient)\r\n"
 				+ ")");
-		table.add("Genre ("
-				+ "noFilm number(10) references Film(noFilm),"
-				+ "genre varchar2(20) references TypeGenre(Genre),"
-				+ "primary key (noFilm, genre)"
+		table.add("Create table Genre (\r\n"
+				+ "    noFilm number(10) references Film(noFilm),\r\n"
+				+ "    genre varchar2(20) references TypeGenre(Genre),\r\n"
+				+ "    primary key (noFilm, genre)\r\n"
 				+ ")");
-		table.add("Restriction ("
-				+ "noClient number(10) references AbonneEnfant(noClient),"
-				+ "genre varchar2(20) references TypeGenre(genre),"
-				+ "primary key (noClient, genre)"
+		table.add("Create table Restriction (\r\n"
+				+ "    noClient number(10) references AbonneEnfant(noClient),\r\n"
+				+ "    genre varchar2(20) references TypeGenre(genre),\r\n"
+				+ "    primary key (noClient, genre)\r\n"
 				+ ")");
-		table.add("Acteur ("
-				+ "noFilm number(10) references Film(noFilm),"
-				+ "nomActeur varchar2(20),"
-				+ "prenomActeur varchar2(20),"
-				+ "primary key (noFilm, nomActeur, prenomActeur)"
+		table.add("Create table Acteur (\r\n"
+				+ "    noFilm number(10) references Film(noFilm),\r\n"
+				+ "    nomActeur varchar2(20),\r\n"
+				+ "    prenomActeur varchar2(20),\r\n"
+				+ "    primary key (noFilm, nomActeur, prenomActeur)\r\n"
 				+ ")");
-		table.add("DVD ("
-				+ "noSupport number(10) references Support(noSupport),"
-				+ "etat varchar2(20) check (etat in ('Endommage', 'Bon')),"
-				+ "emplacement number(3),"
-				+ "primary key (noSupport)"
+		table.add("Create table DVD (\r\n"
+				+ "    noSupport number(10) references Support(noSupport),\r\n"
+				+ "    etat varchar2(20) check (etat in ('Endommage', 'Bon')),\r\n"
+				+ "    emplacement number(3),\r\n"
+				+ "    primary key (noSupport)\r\n"
 				+ ")");
-
-		try { 
-			
-			for (int i = 0; i < table.size(); i++){
+		
+		
+		try {   
+            for (int i = 0; i < table.size(); i++){
 				conn.prepareStatement("Create table " + table.get(i)).execute();
 			}
 		}
@@ -199,7 +201,7 @@ public class Test {
 
 
 
-		
+
 		
         s.close();
     }
