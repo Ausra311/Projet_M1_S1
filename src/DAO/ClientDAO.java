@@ -109,5 +109,20 @@ public class ClientDAO extends DAO<Client> {
         // TODO Auto-generated method stub
         return false;
     }
+
+    public String type(int id) throws SQLException {
+        String type = null;
+        try (PreparedStatement req = conn.prepareStatement("Select Type from Client where noClient = ?")){
+            req.setInt(1, id);
+            ResultSet res = req.executeQuery();
+            if (res.next()){
+                type = res.getString(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return type;
+    }
     
 }

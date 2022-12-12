@@ -212,6 +212,7 @@ public class Test {
 		FilmDAO F = new FilmDAO(Session.getSession());
 		DVDDAO D = new DVDDAO(Session.getSession());
 		LocationDAO L = new LocationDAO(Session.getSession());
+		GenreDAO G = new GenreDAO(Session.getSession());
 
 		Abonne_parent parent = new Abonne_parent(10, "Test", "prenom", "adresse", "telephone", 15, null, null, null, null);
 		Client.create(parent, "Abonne Parent");
@@ -258,6 +259,11 @@ public class Test {
 		System.out.println("Endommage");
 		A.update(enfant);
 		System.out.println("Abonne");
+
+		Vector<String> Genre = G.read(null);
+		System.out.println(Genre.size());
+
         s.close();
+
     }
 }

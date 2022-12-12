@@ -30,7 +30,7 @@ public class GenreDAO extends DAO<String> {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Genre;
     }
 
     @Override
