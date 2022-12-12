@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
+import fc.Abonne_enfant;
 import fc.Abonne_parent;
 import fc.Client;
 import fc.DVD;
@@ -202,8 +203,15 @@ public class Test {
         initialisation(Session.getSession());
         
         ClientDAO Client = new ClientDAO(Session.getSession());
+		AbonneDAO A = new AbonneDAO(Session.getSession());
+		AbonneEnfantDAO Ae = new AbonneEnfantDAO(Session.getSession());
+
 		Abonne_parent Abonne_p = new Abonne_parent(10, "Test", "prenom", "adresse", "telephone", 15, null, null, null, null);
+		Abonne_enfant Abonne_e = (Ae.read(6)).get(1);
+
 		Client.create(Abonne_p, "Abonne_parent");
+		//A.update(Abonne_e);
+		
 
         s.close();
     }

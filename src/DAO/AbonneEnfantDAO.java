@@ -67,7 +67,7 @@ public class AbonneEnfantDAO extends DAO<Abonne_enfant> {
             res_genre = info_genre.executeQuery();
             res_location = info_location.executeQuery();
            
-            if (res_abonne.next()){
+            if (res_abonne.first()){
 
                 nom = res_abonne.getString(2);
                 prenom = res_abonne.getString(3);
