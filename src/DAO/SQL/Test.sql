@@ -68,3 +68,16 @@ insert into Location values (5, 1, SYSDATE, 0, null);
 
 update Abonne set solde = 10 where noClient = 6;
 insert into Location values (6, 5, SYSDATE, 0, null);
+
+-- Insertion de Genre de film
+insert into TypeGenre values ('Action');
+insert into TypeGenre values ('Aventure');
+insert into TypeGenre values ('Comédie');
+insert into TypeGenre values ('Horreur');
+insert into TypeGenre values ('Fanstastique');
+
+insert into Genre values (2, 'Action');
+insert into Genre values (2, 'Fanstastique');
+insert into Genre values (1, 'Fanstastique');
+
+insert into Restriction values (6, 'Action');

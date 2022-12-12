@@ -147,6 +147,13 @@ public class Test {
 		conn.prepareStatement("insert into Film values (1, 'Totoro', 'Eva', 2000, 'totoro', 0, 0)").execute();
 		conn.prepareStatement("insert into Film values (2, 'Avenger', 'Eva', 2000, 'superheros', 0, 0)").execute();
 
+		conn.prepareStatement("insert into TypeGenre values ('Action')").execute();
+		conn.prepareStatement("insert into TypeGenre values ('Fanstastique')").execute();
+
+		conn.prepareStatement("insert into Genre values (2, 'Action')").execute();
+		conn.prepareStatement("insert into Genre values (2, 'Fanstastique')").execute();
+		conn.prepareStatement("insert into Genre values (1, 'Fanstastique')").execute();
+
 		conn.prepareStatement("insert into Support values (1, 1, 'DVD')").execute();
 		conn.prepareStatement("insert into Support values (2, 1, 'DVD')").execute();
 		conn.prepareStatement("insert into Support values (3, 1, 'DVD')").execute();
@@ -172,10 +179,10 @@ public class Test {
 		conn.prepareStatement("insert into AbonneEnfant values (6, 5, 0)").execute();
 		conn.prepareStatement("insert into AbonneEnfant values (7, 5, 0)").execute();
 
+		conn.prepareStatement("insert into Restriction values (6, 'Action')").execute();
+
 		conn.prepareStatement("insert into Location values (1, 1, SYSDATE, 0, null)").execute();
 		conn.prepareStatement("insert into Location values (2, 2, SYSDATE, 0, null)").execute();
-		conn.prepareStatement("insert into Location values (2, 3, SYSDATE, 0, null)").execute();
-		conn.prepareStatement("insert into Location values (2, 4, SYSDATE, 0, null)").execute();
 		
 		//conn.prepareStatement("").execute();
 
