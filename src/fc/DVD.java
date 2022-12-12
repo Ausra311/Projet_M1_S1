@@ -18,6 +18,10 @@ public class DVD extends Support{
         return emplacement;
     }
 
+    public void set_endommage(Boolean b){
+        endommage = b;
+    }
+
     public Boolean est_endommage(){
         return endommage;
     }

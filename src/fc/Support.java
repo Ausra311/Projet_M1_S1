@@ -12,6 +12,9 @@ public abstract class Support {
         return -1;
     }
 
+    public void set_endommage(Boolean b){
+    }
+
     public Boolean est_endommage(){
         return false;
     }
