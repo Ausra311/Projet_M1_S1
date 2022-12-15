@@ -12,18 +12,21 @@ public class Interface {
     Vector<Film> liste_film;
     Vector<String> liste_genre;
     
+    int index = 2;
     public Interface(){
         Carte_banquaire cb = new Carte_banquaire("CIC", "Visa", "42", new Banque_transaction());
-        Client c1= new Client(0, cb);
+
+        Abonne_parent c1 = new Abonne_parent(0, "GAILLARD", "EVA", "SMH", "007", 150, cb);
         
-        Abonne_parent c2= new Abonne_parent(1, "ANDRE", "Paul", "SMH", "3630", 15, cb);
-        Abonne_enfant c3= new Abonne_enfant(2, "Romain", "Noe", "Grenoble", "0606060606", 15, cb);
-        
+        Abonne_parent c2 = new Abonne_parent(1, "ANDRE", "Paul", "SMH", "3630", 15, cb);
+        Abonne_enfant c3 = new Abonne_enfant(2, "Romain", "Noe", "Grenoble", "0606060606", 15, cb);
+        c3.add_restriction_age(12);
         c2.add_enfant(c3);
 
         liste_client = new Vector<Client>();
         liste_client.add(c1);
         liste_client.add(c2);
+        liste_client.add(c3);
 
         liste_location = new Vector<Location>();
 
@@ -47,7 +50,7 @@ public class Interface {
         act2.add("Ewan McGregor");
         act2.add("Natalie Portman");
         Vector<String> genre2 = new Vector<String>();
-        genre1.add("Action");
+        genre2.add("Action");
         Film f2 = new Film(1, "Star Wars", " 	George Lucas", act2, resume2, genre2, 12, 1);
         
 
@@ -56,10 +59,14 @@ public class Interface {
         liste_film.add(f2);
 
         DVD d1 = new DVD(f1, 0, false, true, 0);
-        DVD d2 = new DVD(f1, 1, false, true, 0);
+        DVD d2 = new DVD(f1, 1, false, true, 1);
+        DVD d3 = new DVD(f1, 2, false, true, 3);
+        DVD d4 = new DVD(f2, 3, false, true, 2);
         liste_support = new Vector<Support>();
         liste_support.add(d1);
         liste_support.add(d2);
+        liste_support.add(d3);
+        liste_support.add(d4);
 
 
 
@@ -81,11 +88,20 @@ public class Interface {
         }
     }
 
-    public void rendre(int id, Boolean endommage){
+    public void rendre(Boolean endommage){
+        Automate automate=new Automate();
+        int id = automate.lire_disque_rendu();
         for(int i =0; i<liste_location.size();i++){
             if(liste_location.get(i).get_Support().get_id()==id){
+                
                 liste_location.get(i).get_Support().retour();
                 liste_location.get(i).get_Support().set_endommage(endommage);
+                Client c = liste_location.get(i).get_Client();
+                c.rendre(liste_location.get(i).get_Historique());
+                liste_support.add(liste_location.get(i).get_Support());
+                liste_location.remove(i);
+
+                break;
             }
         }
     }
@@ -101,10 +117,10 @@ public class Interface {
     public Vector<Film> rechercher(String titre,String categorie){
         Vector<Film> lf = new Vector<Film>();
         for(int i = 0;i<liste_film.size();i++){
-            if(liste_film.get(i).get_titre() == titre){
+            if(liste_film.get(i).get_titre().equals(titre)){
                 Boolean b = false;
                 for(int j = 0;j<liste_film.get(i).get_genre().size();j++){
-                    if(liste_film.get(i).get_genre().get(j) == categorie){
+                    if(liste_film.get(i).get_genre().get(j).equals(categorie)){
                         b = true;
                     }
                 }
@@ -119,7 +135,7 @@ public class Interface {
     public Vector<Film> rechercher_titre(String titre){
         Vector<Film> lf = new Vector<Film>();
         for(int i = 0;i<liste_film.size();i++){
-            if(liste_film.get(i).get_titre() == titre){
+            if(liste_film.get(i).get_titre().equals(titre)){
                 lf.add(liste_film.get(i));
             }
         }
@@ -130,8 +146,10 @@ public class Interface {
         Vector<Film> lf = new Vector<Film>();
         for(int i = 0;i<liste_film.size();i++){
             Boolean b = false;
+            System.out.println(categorie + "/" + liste_film.get(i).get_genre().size());
             for(int j = 0;j<liste_film.get(i).get_genre().size();j++){
-                if(liste_film.get(i).get_genre().get(j) == categorie){
+                System.out.println(categorie + "/" + liste_film.get(i).get_genre().get(j));
+                if(liste_film.get(i).get_genre().get(j).equals(categorie)){
                     b = true;
                 }
             }
@@ -150,5 +168,50 @@ public class Interface {
             }
         }
         return b;
+    }
+
+    public Boolean louer(Film f,Boolean b){
+        Automate automate=new Automate();
+        Boolean nex_client = false;
+        if(client == null){
+            client = new Client(0, automate.get_cb());
+            nex_client = true;
+        }
+        if(b && !client.louer(f)){
+            if(nex_client){
+                client = null;
+            }
+            return false;
+        }
+        Location loc;
+        if(b){
+            Support dvd = new DVD(f, 0, b, b, 0);
+            for(int i =0; i < liste_support.size();i++){
+                if(liste_support.get(i).get_film().get_id() == f.get_id()){
+                    dvd = liste_support.get(i);
+                    liste_support.remove(i);
+                    break;
+                }
+            }
+            loc = new Location(client, new Historique(f), dvd);
+        }
+        else{
+            client.debiterMono();
+            Support qrcode = new QRCode(f);
+            loc = new Location(client, new Historique(f), qrcode);
+        }
+        liste_location.add(loc);
+        if(nex_client){
+            client = null;
+        }
+        return true;
+    }
+
+    public Boolean recharger(int s){
+        if(s>=10 && client!=null){
+            client.recharger(s);
+            return true;
+        }
+        return false;
     }
 }

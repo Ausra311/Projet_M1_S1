@@ -14,7 +14,7 @@ public class Films extends JPanel{
     Interface inter;
     Vector<Film> liste_films = new Vector<Film>();
     
-    Films(JFrame f, boolean c,Interface in) {
+    Films(JFrame f, boolean c,Interface in){
     inter = in;
     connecter = c;
     int solde = 0;
@@ -31,8 +31,7 @@ public class Films extends JPanel{
     liste_films = inter.get_liste_film();
     
     JButton Retour = new JButton("Retour");
-    JButton GestionCompte = new JButton("Mon Compte");
-    
+    JButton GestionCompte = new JButton("Compte");
     JTextField Recherche = new JTextField();
     Recherche.setFont(new Font("Arial",Font.PLAIN,20));
     Vector<String> genre = inter.get_liste_genre();
@@ -72,7 +71,7 @@ public class Films extends JPanel{
     Solde.setFont(new Font("Arial",Font.BOLD,25));
     
     //Boutons
-    Retour.setPreferredSize(new Dimension(110,50));
+    Retour.setPreferredSize(new Dimension(150,50));
     Retour.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
@@ -80,11 +79,11 @@ public class Films extends JPanel{
             Fenetre.revalidate();
             }
     });
-    GestionCompte.setPreferredSize(new Dimension(110,50));
+    GestionCompte.setPreferredSize(new Dimension(110,40));
     GestionCompte.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,new Film(0,"","",null,"",null,0,0)));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,new Film(0,"","",null,"",null,0,0),false));
             Fenetre.revalidate();
             }
     });
@@ -93,14 +92,38 @@ public class Films extends JPanel{
         public void actionPerformed(ActionEvent e){
             String genre_choisi = (String) Liste_genre.getSelectedItem();
             String titre = Recherche.getText();
-            System.out.println("Recherche = " + titre);
-            System.out.println("genre = " + genre_choisi);
-            liste_films = inter.rechercher(titre, genre_choisi);
-            
+            if(!titre.equals("") && !genre_choisi.equals("Tous")){
+                System.out.println("b");
+                liste_films = inter.rechercher(titre, genre_choisi);
+            }
+            else if(titre.equals("") && !genre_choisi.equals("Tous")){
+                System.out.println("a");
+                liste_films = inter.rechercher_genre(genre_choisi);
+            }
+            else if (!titre.equals("") && genre_choisi.equals("Tous")){
+                liste_films = inter.rechercher_titre(titre);
+            }
+            else{
+                liste_films = inter.get_liste_film();
+            }
+            centre.removeAll();
+            bar.removeAll();
+            JPanel new_films = new JPanel();
+            new_films.setLayout(new StackLayout());
+            centre.remove(bar);
+            JScrollPane new_bar = new JScrollPane(new_films);
+            for (int i = 0; i< liste_films.size() ; i++){
+                PFilm fi = new PFilm(liste_films.get(i).get_id(), Fenetre, connecter,liste_films,inter,false);
+                new_films.add(fi);
+                
+            }
+            centre.add(new_bar,BorderLayout.CENTER);
+            centre.revalidate();
+            centre.repaint();
             }
     });
     for (int i = 0; i< liste_films.size() ; i++){
-        PFilm fi = new PFilm(liste_films.get(i).get_id(), Fenetre, connecter,liste_films,inter);
+        PFilm fi = new PFilm(liste_films.get(i).get_id(), Fenetre, connecter,liste_films,inter,false);
         films.add(fi);
     }
 

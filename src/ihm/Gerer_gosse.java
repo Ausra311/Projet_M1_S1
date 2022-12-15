@@ -13,9 +13,12 @@ import java.awt.*;
 public class Gerer_gosse extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    Gerer_gosse(JFrame j, Interface i,Film film){
+    JLabel restr_genre = new JLabel();
+    Gerer_gosse(JFrame j, Interface i,Film film,boolean dvd){
         inter = i;
         Fenetre = j;
+        
+        Client client = inter.get_client();
         JPanel centre = new JPanel();
         JPanel centre0 = new JPanel();
         JPanel centre1 = new JPanel();
@@ -38,8 +41,10 @@ public class Gerer_gosse extends JPanel {
         ages.add("18");
         ages.add("aucune");
         enfants.add("-- Choix du compte--");
-        enfants.add("enfant 1");
-        enfants.add("enfant 2");
+        for(int k=0;k<client.get_liste_enfant().size();k++){
+            enfants.add(client.get_enfant(k).get_prenom());
+        }
+        
         JButton ajouterRes = new JButton("Ajouter cette restriction");
         JButton supprimer = new JButton("Supprimer cette restriction");
         ajouterRes.setVisible(false);
@@ -74,7 +79,9 @@ public class Gerer_gosse extends JPanel {
 
             Liste_genre.setSelectedIndex(0);
             Restriction_actuelle.removeAll(Restriction_actuelle);
-            Restriction_actuelle.add("Action");
+            for(int k=0;k<client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_restriction_categorie().size();k++){
+                Restriction_actuelle.add(client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_restriction_categorie().get(k));
+            }
             JLabel choix_age = new JLabel("Choisir restriction d'âge :");
             choix_age.setFont(new Font("Arial",Font.BOLD,25));
             JComboBox res_age = new JComboBox<>(ages);
@@ -86,16 +93,17 @@ public class Gerer_gosse extends JPanel {
             name.setFont(new Font("Arial",Font.BOLD,25));
             JButton valider = new JButton("Valider");
             valider.setFont(new Font("Arial",Font.BOLD,25));
+            int age = client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_age();
+            JLabel restr_age = new JLabel("Restriction d'âge actuelle : " + age);
             valider.addActionListener(new ActionListener()
             {
             public void actionPerformed(ActionEvent e){
-                System.out.println("Nouvelle restriction d'age : " + res_age.getSelectedItem() + " ans");
+                restr_age.setText("Restriction d'âge actuelle : " + res_age.getSelectedItem());
                 }
             });
-            int age = 10;
-            JLabel restr_age = new JLabel("Restriction d'âge actuelle : " + age);
+            
             restr_age.setFont(new Font("Arial",Font.BOLD,25));
-            JLabel restr_genre = new JLabel("Restrictions de genre actuelles : " + Restriction_actuelle);
+            restr_genre = new JLabel("Restrictions de genre actuelles : " + Restriction_actuelle);
             restr_genre.setFont(new Font("Arial",Font.BOLD,25));
             ajouterRes.setFont(new Font("Arial",Font.BOLD,25));
             supprimer.setFont(new Font("Arial",Font.BOLD,25));
@@ -121,7 +129,7 @@ public class Gerer_gosse extends JPanel {
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
@@ -130,14 +138,24 @@ public class Gerer_gosse extends JPanel {
         ajouterRes.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            System.out.println(Liste_genre.getSelectedItem()+ " ajouté de la liste des restictions");
+            client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_restriction_categorie().remove(Liste_genre.getSelectedItem().toString());
+            client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_restriction_categorie().add(Liste_genre.getSelectedItem().toString());
+            Restriction_actuelle.add(Liste_genre.getSelectedItem().toString());
+            restr_genre.setText("Restrictions de genre actuelles : " + Restriction_actuelle);
+            ajouterRes.setVisible(false);
+            supprimer.setVisible(true);
             }
         });
 
         supprimer.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            System.out.println(Liste_genre.getSelectedItem()+ " supprimé de la liste des restictions");
+            
+            client.get_enfant(Liste_enfants.getSelectedIndex()-1).get_restriction_categorie().remove(Liste_genre.getSelectedItem().toString());
+            Restriction_actuelle.remove(Liste_genre.getSelectedItem().toString());
+            restr_genre.setText("Restrictions de genre actuelles : " + Restriction_actuelle);
+            ajouterRes.setVisible(true);
+            supprimer.setVisible(false);
             }
         });
 

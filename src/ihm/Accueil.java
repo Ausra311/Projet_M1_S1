@@ -46,7 +46,7 @@ public class Accueil extends JPanel{
         Connexion.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Connexion(Fenetre,connecter,0,inter,new Film(0,"","",null,"",null,0,0)));
+            Fenetre.setContentPane(new Connexion(Fenetre,connecter,0,inter,new Film(0,"","",null,"",null,0,0),false));
             Fenetre.revalidate();
             }
         });
@@ -85,7 +85,6 @@ public class Accueil extends JPanel{
         add(Haut);
         add(Location);
         add(Boutons);       
-        
     }
 }
 

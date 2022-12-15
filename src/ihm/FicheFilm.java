@@ -10,10 +10,12 @@ public class FicheFilm extends JPanel {
     BackgroundPanel affiche;
     Interface inter;
     Film film;
-    FicheFilm(int id,JFrame f,boolean c,Interface i,Film fi) {
+    boolean dvd;
+    FicheFilm(int id,JFrame f,boolean c,Interface i,Film fi,boolean d) {
     connecter =c;
     inter = i;
     film = fi;
+    dvd = d;
     JFrame Fenetre = f;
     JPanel Sud = new JPanel();
     JPanel Centre = new JPanel();
@@ -23,12 +25,13 @@ public class FicheFilm extends JPanel {
     JButton Retour = new JButton("Retour");
     boolean dispoDVD = inter.dvd_dispo(fi);
     JPanel centre2 = new JPanel();
-    JLabel real = new JLabel("Réalisateur : " + film.get_realisateur());
-    JLabel acteur = new JLabel("Acteur : "+film.get_acteurs().toString().substring(1));
+    JLabel real = new JLabel("<html><br/>Réalisateur : " + film.get_realisateur()+"<html>");
+    JLabel acteur = new JLabel("<html><br/>Acteur : "+film.get_acteurs().toString().substring(1,film.get_acteurs().toString().length()-1)+"<html>");
     centre2.setLayout(new StackLayout());
-
+    JLabel genre = new JLabel("<html><br/>Genre : " + film.get_genre().toString().substring(1,film.get_genre().toString().length()-1)+"<html>");
     JLabel titre = new JLabel(film.get_titre());
     titre.setFont(new Font("Arial",Font.BOLD,40));
+    JLabel age = new JLabel("<html><br/>Age recommandé : " + film.get_restriction()+"<br/>");
     
     JLabel resume = new JLabel(film.get_resume());
     
@@ -36,9 +39,6 @@ public class FicheFilm extends JPanel {
     String currentPath = System.getProperty("user.dir");
 
     affiche = new BackgroundPanel(currentPath+"/src/ihm/images/"+film.get_id()+".png",1);
-
-    System.out.println(currentPath+"/src/ihm/images/"+film.get_id()+".png");
-
     Retour.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
@@ -49,12 +49,13 @@ public class FicheFilm extends JPanel {
     LouerDVD.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
+            dvd = true;
             if(connecter){
-            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film));
+            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film,dvd));
             Fenetre.revalidate();
             }
             else{
-                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film));
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film,dvd));
                 Fenetre.revalidate();
             }
         }
@@ -62,12 +63,13 @@ public class FicheFilm extends JPanel {
     LouerQR.addActionListener(new ActionListener()
     {
         public void actionPerformed(ActionEvent e){
+            dvd = false;
             if(connecter){
-            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film));
+            Fenetre.setContentPane(new Louer_abo(Fenetre,connecter,inter,film,dvd));
             Fenetre.revalidate();
             }
             else{
-                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film));
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film,dvd));
                 Fenetre.revalidate();
             }
         }
@@ -78,11 +80,15 @@ public class FicheFilm extends JPanel {
     Centre.setLayout(new BorderLayout());
     affiche.setPreferredSize(new Dimension(500,100));
     Centre.add(affiche,BorderLayout.WEST);
-
+    resume.setFont(new Font("Arial",Font.CENTER_BASELINE,20));
+    real.setFont(new Font("Arial",Font.CENTER_BASELINE,20));
+    acteur.setFont(new Font("Arial",Font.CENTER_BASELINE,20));
+    genre.setFont(new Font("Arial",Font.CENTER_BASELINE,20));
     centre2.add(titre);
     centre2.add(resume);
     centre2.add(real);
     centre2.add(acteur);
+    centre2.add(genre);
     Centre.add(centre2,BorderLayout.CENTER);
 
 

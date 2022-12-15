@@ -3,13 +3,14 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.lang.Integer;
 import fc.*;
 
 public class Recharger extends JPanel {
        JFrame Fenetre;
        int pred;
        Interface inter;
-       Recharger(JFrame f, int i,Interface in,Film film) {
+       Recharger(JFrame f, int i,Interface in,Film film,boolean dvd) {
               Fenetre = f;
               pred = i;
               inter = in;
@@ -26,7 +27,7 @@ public class Recharger extends JPanel {
               JButton retour = new JButton("Retour");
               JTextField montant = new JTextField();
               JPanel centre3 = new JPanel();
-              int solde = 15; // a récupérer dans la bd
+              int solde = inter.get_client().get_solde();
               JLabel info_solde = new JLabel("Votre solde est de : "+ solde +" euros");
               info_solde.setFont(new Font("Arial",Font.CENTER_BASELINE,20)); 
               info_solde.setFont(new Font("Arial",Font.BOLD,20));
@@ -38,7 +39,7 @@ public class Recharger extends JPanel {
 
               montant.setPreferredSize(new Dimension(100,30));
               Payer.setPreferredSize(new Dimension(150,40));
-              choix.setPreferredSize(new Dimension(275,50));
+              choix.setPreferredSize(new Dimension(350,50));
               euro.setPreferredSize(new Dimension(15,50));
               choix.setFont(new Font("Arial",Font.CENTER_BASELINE,15));
               montant.setFont(new Font("Arial",Font.CENTER_BASELINE,15));
@@ -48,12 +49,25 @@ public class Recharger extends JPanel {
               {
                      public void actionPerformed(ActionEvent e){
                             String prix = montant.getText();
-                            JLabel paye = new JLabel("Rechargement de "+ prix +" euros effectué");
-                            centre3.add(paye);
-                            centre3.add(terminer);
-                            centre3.setVisible(true);
-                            Payer.setVisible(false);
-
+                            JLabel paye = new JLabel();
+                            boolean recharge = inter.recharger(Integer.parseInt(prix));
+                            if(recharge){
+                                   paye.setText("Rechargement de "+ prix +" euros effectué");
+                                   centre3.add(paye);
+                                   centre3.add(terminer);
+                                   centre3.setVisible(true);
+                                   Payer.setVisible(false);
+                                   int solde2 = inter.get_client().get_solde();
+                                   info_solde.setText("Votre solde est de : "+ solde2 +" euros");
+                                   repaint();
+                            }
+                            else{
+                                   paye.setText("Le montant doit être supérieur a 10 euros");
+                                   paye.setVisible(true);
+                                   centre3.add(paye);
+                                   centre3.setVisible(true);
+                                   repaint();
+                            }
                      }
               
               });
@@ -63,10 +77,10 @@ public class Recharger extends JPanel {
               {
                      public void actionPerformed(ActionEvent e){
                      if(pred==0){
-                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
+                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film,dvd));
                             Fenetre.revalidate();
                      }else{
-                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film));
+                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film,dvd));
                             Fenetre.revalidate();                
                      }
               }
@@ -75,10 +89,10 @@ public class Recharger extends JPanel {
               {
                      public void actionPerformed(ActionEvent e){
                      if(pred==0){
-                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
+                            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film,dvd));
                             Fenetre.revalidate();
                      }else{
-                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film));
+                            Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film,dvd));
                             Fenetre.revalidate();                
                      }
               }

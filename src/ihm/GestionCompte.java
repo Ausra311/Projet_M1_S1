@@ -9,7 +9,7 @@ import fc.*;
 public class GestionCompte extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    GestionCompte(JFrame j,Interface i,Film film){
+    GestionCompte(JFrame j,Interface i,Film film,boolean dvd){
         Fenetre =j;
         inter =i;
         setLayout(new BorderLayout());
@@ -25,8 +25,13 @@ public class GestionCompte extends JPanel {
         espace4.setPreferredSize(new Dimension(20,120));
         centre.setLayout(new GridLayout(1,2));
         sud.setLayout(new BorderLayout());
-        JTextField Infos = new JTextField("Nom Prenom adresse ...");
+        
+        Client client = inter.get_client();
+        String info_perso = "\n\nNom : "+client.get_nom()+"\n\nPrenom : "+client.get_prenom()+ "\n\nAdresse : " + client.get_adresse() + "\n\nTelephone : " + client.get_telephone() + "\n\nSolde : " +client.get_solde();
+        TextArea Infos = new TextArea(info_perso);
+        Infos.setFont(new Font("Arial",Font.CENTER_BASELINE,25));
         Infos.setEditable(false);
+        
         JPanel boutons = new JPanel();
         boutons.setLayout(new StackLayout());
         JButton Histo = new JButton("Historique");
@@ -60,21 +65,21 @@ public class GestionCompte extends JPanel {
         Histo.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Histo(Fenetre,inter,film));
+            Fenetre.setContentPane(new Histo(Fenetre,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
         Recharger.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Recharger(Fenetre,0,inter,film));
+            Fenetre.setContentPane(new Recharger(Fenetre,0,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
         GererMioche.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Gerer_gosse(Fenetre,inter,film));
+            Fenetre.setContentPane(new Gerer_gosse(Fenetre,inter,film,dvd));
             Fenetre.revalidate();
             }
         });

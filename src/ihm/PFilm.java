@@ -22,7 +22,7 @@ public class PFilm extends JPanel{
     Vector<Film> liste_films = new Vector<Film>();
     Interface inter;
     Film film;
-    PFilm(int id,JFrame j,boolean c,Vector<Film>f,Interface i) {
+    PFilm(int id,JFrame j,boolean c,Vector<Film>f,Interface i,boolean dvd) {
         super();
         inter = i;
         liste_films =f;
@@ -61,7 +61,7 @@ public class PFilm extends JPanel{
         Louer.addActionListener(new ActionListener()
             {
             public void actionPerformed(ActionEvent e){
-                Fenetre.setContentPane(new FicheFilm(id-1,Fenetre,connecter,inter,film));
+                Fenetre.setContentPane(new FicheFilm(id-1,Fenetre,connecter,inter,film,dvd));
                 Fenetre.revalidate();
                 }
             });

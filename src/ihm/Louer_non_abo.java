@@ -11,7 +11,7 @@ public class Louer_non_abo extends JPanel {
     JFrame Fenetre;
     Interface inter;
     Film film;
-    Louer_non_abo(JFrame j,Interface i,Film fi){
+    Louer_non_abo(JFrame j,Interface i,Film fi,boolean dvd){
         Fenetre = j;
         inter = i;
         film = fi;
@@ -24,6 +24,8 @@ public class Louer_non_abo extends JPanel {
         JPanel droite = new JPanel();
         JPanel espace = new JPanel();
         JPanel Payement = new JPanel();
+        JPanel Refuser = new JPanel();
+        JLabel refus = new JLabel("Payement refusé. Transaction annulée");
         JPanel nord = new JPanel();
         nord.setPreferredSize(new Dimension(600,300));
         JLabel paye = new JLabel("Payement de 5 euros effectué     ");
@@ -46,22 +48,27 @@ public class Louer_non_abo extends JPanel {
         retour.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new FicheFilm(0,Fenetre,false,inter,film));
+            Fenetre.setContentPane(new FicheFilm(0,Fenetre,false,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
         connecter.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new Connexion(Fenetre,false,1,inter,film));
+            Fenetre.setContentPane(new Connexion(Fenetre,false,1,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
         valider.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e){
-            Payement.setVisible(true);
-            valider.setVisible(false);
+            boolean transaction = inter.louer(fi, dvd);
+            if(transaction){
+                Payement.setVisible(true);
+                valider.setVisible(false);
+            }else{
+                Refuser.setVisible(true);
+            }
             }
         });
         terminer.addActionListener(new ActionListener()
@@ -86,9 +93,13 @@ public class Louer_non_abo extends JPanel {
         droite.add(espace2);
         droite.add(valider);
 
+        Refuser.setVisible(false);
+        refus.setFont(new Font("Arial",Font.BOLD,20));
+        Refuser.add(refus);
         centre.add(gauche);
         centre.add(droite);
         centre.add(Payement);
+        centre.add(Refuser);
 
         add(nord,BorderLayout.NORTH);
         add(centre,BorderLayout.CENTER);

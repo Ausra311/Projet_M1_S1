@@ -7,12 +7,15 @@ import fc.*;
 
 public class FicheHisto extends JPanel {
     Interface inter;
-    FicheHisto(int i,Interface in){
-        inter = in;
+    FicheHisto(Historique histo){
         JPanel centre = new JPanel();
-        JLabel titre = new JLabel("historique numero" + i);
-        JLabel date_deb = new JLabel("01/02/1699");
-        JLabel date_fin = new JLabel("03/04/1789");
+        JLabel titre = new JLabel(histo.get_film().get_titre());
+        JLabel date_deb = new JLabel(histo.date_debut.toString());
+        String s = "Non rendu";
+        if(histo.date_fin != null){
+            s = histo.date_fin.toString();
+        }
+        JLabel date_fin = new JLabel(s);
         titre.setFont(new Font("Arial",Font.PLAIN,15));
         date_deb.setFont(new Font("Arial",Font.PLAIN,15));
         date_fin.setFont(new Font("Arial",Font.PLAIN,15));

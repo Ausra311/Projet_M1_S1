@@ -9,7 +9,7 @@ public class Historique {
     public Historique(Film _film){
         film = _film;
         date_debut = new Date();
-        
+        date_fin = null;
     }
 
     public Historique(Film _film,Date _date_debut,Date _date_fin){

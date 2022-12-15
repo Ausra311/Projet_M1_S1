@@ -63,7 +63,7 @@ public class Rendre extends JPanel {
         {
         public void actionPerformed(ActionEvent e){
             Fenetre.setContentPane(new Accueil(Fenetre,connecter,inter));
-            inter.rendre(auto.lire_disque_rendu(), casser);
+            inter.rendre(casser);
             Fenetre.revalidate();
             }
         });

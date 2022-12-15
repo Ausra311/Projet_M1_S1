@@ -15,7 +15,7 @@ public class Connexion extends JPanel{
     int id = 0 ;
     Interface inter;
     Film film;
-    Connexion(JFrame f, boolean c,int p,Interface i,Film fi){
+    Connexion(JFrame f, boolean c,int p,Interface i,Film fi,boolean dvd){
         inter =i;
         pred = p;
         film = fi;
@@ -60,7 +60,7 @@ public class Connexion extends JPanel{
                     id = Integer.parseInt(s);
                 }
                 inter.set_client(id);
-                Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film));        
+                Fenetre.setContentPane(new Louer_abo(Fenetre,true,inter,film,dvd));        
             }
             
             Fenetre.revalidate();
@@ -74,7 +74,7 @@ public class Connexion extends JPanel{
             if(pred ==0){
                 Fenetre.setContentPane(new Accueil(Fenetre,connecter,inter));
             }else{
-                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film));
+                Fenetre.setContentPane(new Louer_non_abo(Fenetre,inter,film,dvd));
             }
             Fenetre.revalidate();
             }

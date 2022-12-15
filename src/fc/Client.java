@@ -9,7 +9,7 @@ public class Client {
     protected String adresse;
     protected String telephone;
     protected Vector<Historique> film_en_location;
-    protected Vector<Historique> historique;
+    public Vector<Historique> historique;
     protected int solde;
     protected int nb_film_mensuel;
     protected Carte_banquaire carte_banquaire;
@@ -113,6 +113,7 @@ public class Client {
       }
       return null;
     }
+    
     public void debiterMono(){
       carte_banquaire.debiter(5);
     }
@@ -138,8 +139,6 @@ public class Client {
       return false;  
     }
 
-
-    
     public void add_Historique(Film f){
       Historique histo = new Historique(f);
       film_en_location.add(histo);
@@ -171,6 +170,8 @@ public class Client {
       add_date_rendu(f);
 
     }
+
+    public void recharger(int s){}
 }
 
 

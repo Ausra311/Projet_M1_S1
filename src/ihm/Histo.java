@@ -2,6 +2,8 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.util.Vector;
+
 import javax.swing.*;
 import java.awt.*;
 import fc.*;
@@ -9,7 +11,7 @@ import fc.*;
 public class Histo extends JPanel {
     JFrame Fenetre;
     Interface inter;
-    Histo(JFrame j,Interface in,Film film){
+    Histo(JFrame j,Interface in,Film film,boolean dvd){
         Fenetre = j;
         inter = in;
         JPanel nord = new JPanel();
@@ -31,16 +33,16 @@ public class Histo extends JPanel {
         JButton Retour = new JButton("Retour");
         sud.setLayout(new BorderLayout());
         sud.add(Retour,BorderLayout.WEST);
-
-        for (int i=0;i<40;i++){
-            FicheHisto h = new FicheHisto(i+1,inter);
+        Vector<Historique> hi = inter.get_client().get_historique();
+        for (int i=0;i<hi.size();i++){
+            FicheHisto h = new FicheHisto(hi.get(i));
             principal.add(h);
         }
         Retour.setPreferredSize(new Dimension(110,50));
         Retour.addActionListener(new ActionListener()
         {
         public void actionPerformed(ActionEvent e){
-            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film));
+            Fenetre.setContentPane(new GestionCompte(Fenetre,inter,film,dvd));
             Fenetre.revalidate();
             }
         });
@@ -48,5 +50,4 @@ public class Histo extends JPanel {
         add(scroll,BorderLayout.CENTER);
         add(sud,BorderLayout.SOUTH);
     }
-    
 }

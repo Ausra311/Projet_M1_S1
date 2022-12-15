@@ -80,7 +80,28 @@ public class Abonne_enfant  extends Abonne{
     }
 
     public boolean peut_louer(Film f){
-        this.peut_louer();
-        return true;
+        boolean b = this.peut_louer();
+        if(f.get_restriction()>restriction_age){
+            return false;
+        }
+        for(int i = 0; i<f.get_genre().size();i++){
+            for(int j = 0; j<restriction_categorie.size();j++){
+                if(f.get_genre().get(i)==restriction_categorie.get(j)){
+                    return false;
+                }
+            }
+        }
+        return b;
+    }
+
+    @Override
+    public boolean louer(Film f){
+        if(peut_louer(f)){
+          debiterMono();
+          add_Historique(f);
+          vingtieme_films();
+          return true;
+        }
+        return false;
     }
 }

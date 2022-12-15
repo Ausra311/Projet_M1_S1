@@ -1,5 +1,5 @@
 package fc;
-
+import fc.banque.Banque_transaction;
 public class Automate {
 
     public Automate(){}
@@ -20,5 +20,8 @@ public class Automate {
     }
     public int lire_disque_rendu(){
         return 2;
+    }
+    public Carte_banquaire get_cb(){
+        return new Carte_banquaire("CIC", "Visa", "42", new Banque_transaction());
     }
 }
